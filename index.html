@@ -1,0 +1,2765 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CodeGen AI - AI-Powered Interview Preparation & Code Sandbox</title>
+  <meta name="description"
+    content="Discover, practice, and generate production-grade programming interview questions with AI. Integrated IDE sandbox, automated test suites, and diagnostic evaluation." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+
+  <!-- Material Symbols Outlined -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Tailwind Configuration matching Stitch Midnight Syntax Theme -->
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "error-container": "#93000a",
+            "tertiary-fixed-dim": "#ffb2b7",
+            "secondary": "#adc6ff",
+            "on-error": "#690005",
+            "on-surface-variant": "#bbcabf",
+            "on-secondary-fixed": "#001a42",
+            "inverse-on-surface": "#283044",
+            "surface-container-lowest": "#060e20",
+            "on-secondary-container": "#e6ecff",
+            "on-secondary-fixed-variant": "#004395",
+            "tertiary-fixed": "#ffdadb",
+            "inverse-surface": "#dae2fd",
+            "background": "#0b1326",
+            "tertiary": "#ffb2b7",
+            "on-tertiary-fixed-variant": "#92002a",
+            "primary-container": "#10b981",
+            "on-secondary": "#002e6a",
+            "secondary-container": "#0566d9",
+            "on-background": "#dae2fd",
+            "outline-variant": "#3c4a42",
+            "tertiary-container": "#ff7886",
+            "surface-container-high": "#222a3d",
+            "error": "#ffb4ab",
+            "primary": "#4edea3",
+            "surface-container-highest": "#2d3449",
+            "on-tertiary-container": "#780021",
+            "primary-fixed": "#6ffbbe",
+            "on-tertiary-fixed": "#40000d",
+            "on-primary-fixed": "#002113",
+            "inverse-primary": "#006c49",
+            "surface-dim": "#0b1326",
+            "on-primary-fixed-variant": "#005236",
+            "surface-variant": "#2d3449",
+            "surface-bright": "#31394d",
+            "on-primary-container": "#00422b",
+            "secondary-fixed": "#d8e2ff",
+            "secondary-fixed-dim": "#adc6ff",
+            "surface-container": "#171f33",
+            "surface": "#0b1326",
+            "outline": "#86948a",
+            "surface-tint": "#4edea3",
+            "on-tertiary": "#67001b",
+            "on-error-container": "#ffdad6",
+            "surface-container-low": "#131b2e",
+            "on-primary": "#003824",
+            "on-surface": "#dae2fd",
+            "primary-fixed-dim": "#4edea3"
+          },
+          borderRadius: {
+            DEFAULT: "0.125rem",
+            lg: "0.25rem",
+            xl: "0.5rem",
+            full: "0.75rem"
+          },
+          spacing: {
+            md: "1.5rem",
+            sm: "1rem",
+            "container-max": "1280px",
+            xs: "0.5rem",
+            xl: "4rem",
+            lg: "2rem",
+            gutter: "1.5rem",
+            base: "4px"
+          },
+          fontFamily: {
+            "headline-lg": ["Inter", "sans-serif"],
+            "headline-xl": ["Inter", "sans-serif"],
+            "label-sm": ["JetBrains Mono", "monospace"],
+            "body-md": ["Inter", "sans-serif"],
+            "headline-lg-mobile": ["Inter", "sans-serif"],
+            "code-md": ["JetBrains Mono", "monospace"],
+            "body-lg": ["Inter", "sans-serif"],
+            "headline-md": ["Inter", "sans-serif"]
+          },
+          fontSize: {
+            "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "600" }],
+            "headline-xl": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "label-sm": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "500" }],
+            "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+            "code-md": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+            "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+            "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+
+<body
+  class="bg-background font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container">
+
+  <!-- Accessible Screen Reader Announcer -->
+  <div id="aria-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Accessible Skip Navigation Link -->
+  <a class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] px-4 py-2 bg-primary text-on-primary font-label-sm rounded shadow-lg"
+    href="#main-content">
+    Skip to main content
+  </a>
+
+  <!-- ========================================================================= -->
+  <!-- GLOBAL APPLICATION HEADER                                                  -->
+  <!-- ========================================================================= -->
+  <header
+    class="fixed top-0 left-0 right-0 z-50 bg-surface/85 backdrop-blur-xl border-b border-surface-container-high shadow-md">
+    <div class="h-16 max-w-container-max mx-auto px-4 sm:px-gutter flex items-center justify-between gap-2 lg:gap-md w-full">
+
+      <!-- Brand Logo & Navigation -->
+      <div class="flex items-center gap-3 lg:gap-6 min-w-0">
+        <a class="flex items-center gap-xs cursor-pointer group shrink-0" data-nav="problems" href="#problems"
+          title="CodeGen AI Home">
+          <!-- CodeGen Vector Logo from Stitch screen 226421b6c1024b0388a1ac2c61040343 -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50" width="135" height="34" fill="none"
+            class="h-7 sm:h-8 w-auto">
+            <rect x="2" y="5" width="40" height="40" rx="10" fill="#0b1326" stroke="#1e293b" stroke-width="1.5" />
+            <path d="M16 25L10 25L16 19M16 31L10 25" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M28 25L34 25L28 19M28 31L34 25" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M22 17L18 24H26L22 17Z" fill="#10b981" />
+            <path d="M22 25V33" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" />
+            <text x="52" y="32" fill="#f8fafc" font-family="'Inter', sans-serif" font-weight="700" font-size="22"
+              letter-spacing="-0.5px">CodeGen</text>
+          </svg>
+        </a>
+
+        <!-- Desktop Navigation Tabs -->
+        <nav class="hidden lg:flex items-center gap-1 font-label-sm" id="desktop-nav">
+          <button data-nav="problems"
+            class="nav-tab px-3.5 py-1.5 rounded-lg text-on-surface bg-surface-container font-medium transition-all flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[16px]">list_alt</span>
+            <span>Problems</span>
+          </button>
+          <button data-nav="solve"
+            class="nav-tab px-3.5 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[16px]">terminal</span>
+            <span>Workspace</span>
+          </button>
+          <button data-nav="submission"
+            class="nav-tab px-3.5 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[16px]">fact_check</span>
+            <span>Results</span>
+          </button>
+          <button data-nav="dashboard"
+            class="nav-tab px-3.5 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[16px]">analytics</span>
+            <span>Dashboard</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- Header Quick Actions -->
+      <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0 ml-auto">
+        <!-- Sync Status Quick Launcher -->
+        <button id="btn-open-sync-status"
+          class="hidden sm:flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container border border-surface-container text-on-surface hover:text-primary font-label-sm text-xs font-medium transition-all shadow-sm group"
+          type="button" title="View Automatic Sync Status" aria-label="View Automatic Sync Status">
+          <span class="material-symbols-outlined text-[18px] text-primary transition-transform group-hover:rotate-180 duration-500" id="sync-header-icon">sync</span>
+          <span class="hidden md:inline font-medium">Sync Status</span>
+          <span id="sync-header-badge" class="px-1.5 py-0.2 rounded-full bg-primary/20 text-primary text-[11px] font-mono font-semibold">2 new</span>
+        </button>
+
+        <!-- Omnibar Search Quick Launcher -->
+        <button id="btn-search-trigger"
+          class="hidden sm:flex items-center justify-between gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface transition-colors"
+          type="button" title="Quick Search (⌘K)">
+          <div class="flex items-center gap-xs">
+            <span class="material-symbols-outlined text-[18px]">search</span>
+            <span class="font-body-md text-[13px] hidden md:inline">Search...</span>
+          </div>
+          <kbd
+            class="font-label-sm text-[11px] px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-mono">⌘K</kbd>
+        </button>
+
+        <!-- Dev Role Switcher Toggle (GET /api/me simulation) -->
+        <button id="btn-dev-role-toggle"
+          class="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high border border-surface-container-high text-on-surface font-label-sm text-xs transition-colors shadow-sm cursor-pointer group"
+          type="button" title="Click to toggle fake user role (Admin / User) for GET /api/me testing"
+          aria-label="Toggle user role between Admin and User">
+          <span class="w-2 h-2 rounded-full bg-primary" id="dev-role-indicator"></span>
+          <span class="text-on-surface-variant text-[11px] font-mono hidden xl:inline">Role:</span>
+          <span id="dev-role-label" class="font-mono font-bold text-[11px] text-primary uppercase">admin</span>
+          <span class="material-symbols-outlined text-[14px] text-on-surface-variant group-hover:rotate-180 transition-transform">swap_horiz</span>
+        </button>
+
+        <!-- Header Auth State: Logged Out Actions -->
+        <div id="header-auth-logged-out" class="flex items-center gap-2">
+          <button id="btn-header-login" type="button"
+            class="px-3 py-1.5 rounded-lg text-on-surface hover:text-primary hover:bg-surface-container border border-surface-container-high font-label-sm text-xs font-medium transition-colors cursor-pointer"
+            aria-label="Log in to your account">
+            Log in
+          </button>
+          <button id="btn-header-register" type="button"
+            class="px-3.5 py-1.5 rounded-lg bg-primary text-on-primary hover:bg-primary/90 font-label-sm text-xs font-semibold transition-colors shadow-sm flex items-center gap-1 cursor-pointer"
+            aria-label="Create a new account">
+            <span>Create account</span>
+            <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+          </button>
+        </div>
+
+        <!-- Header Auth State: Logged In User Avatar & Dropdown -->
+        <div id="header-auth-logged-in" class="relative hidden flex items-center gap-2">
+          <button id="btn-user-avatar" type="button"
+            title="User Profile Menu"
+            aria-haspopup="menu"
+            aria-expanded="false"
+            aria-controls="user-avatar-dropdown"
+            class="flex items-center gap-1 p-1 rounded-full hover:ring-2 hover:ring-primary/40 focus-visible:ring-2 focus-visible:ring-primary transition-all cursor-pointer group">
+            <div id="header-avatar-initials"
+              class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary font-semibold text-xs shadow-sm select-none">
+              AM
+            </div>
+            <span id="header-avatar-caret" class="material-symbols-outlined text-[16px] text-on-surface-variant group-hover:text-on-surface transition-transform duration-200">expand_more</span>
+          </button>
+
+          <!-- Avatar Dropdown Menu -->
+          <div id="user-avatar-dropdown" role="menu" aria-labelledby="btn-user-avatar"
+            class="absolute right-0 top-full mt-2 w-64 bg-surface-container-low border border-surface-container-high rounded-xl shadow-2xl p-2 z-50 hidden focus:outline-none">
+            <!-- User Info Header -->
+            <div class="px-3 py-2.5 rounded-lg bg-surface-container/60 mb-1 border border-surface-container">
+              <div class="flex items-center gap-2.5">
+                <div id="dropdown-avatar-badge" class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold text-xs shrink-0 select-none">
+                  AM
+                </div>
+                <div class="min-w-0 flex-1">
+                  <div id="dropdown-user-name" class="font-semibold text-xs text-on-surface truncate">Alex Mercer</div>
+                  <div id="dropdown-user-email" class="font-mono text-[11px] text-on-surface-variant truncate" title="alex.mercer@example.com">alex.mercer@example.com</div>
+                </div>
+              </div>
+              <div class="mt-2 pt-2 border-t border-surface-container-highest/50 flex items-center justify-between">
+                <span class="font-label-sm text-[10px] text-on-surface-variant uppercase tracking-wider">Role</span>
+                <span id="dropdown-user-role-badge" class="px-2 py-0.5 rounded font-mono text-[10px] uppercase font-bold bg-primary/20 text-primary">ADMIN</span>
+              </div>
+            </div>
+
+            <!-- Dropdown Navigation Links -->
+            <div class="space-y-0.5" role="none">
+              <button data-nav="dashboard" role="menuitem" type="button"
+                class="dropdown-item w-full flex items-center gap-2 px-3 py-2 text-xs font-medium text-on-surface hover:text-primary hover:bg-surface-container rounded-lg transition-colors text-left cursor-pointer">
+                <span class="material-symbols-outlined text-[16px] text-on-surface-variant">person</span>
+                <span>Profile &amp; Dashboard</span>
+              </button>
+              <button data-nav="problems" role="menuitem" type="button"
+                class="dropdown-item w-full flex items-center gap-2 px-3 py-2 text-xs font-medium text-on-surface hover:text-primary hover:bg-surface-container rounded-lg transition-colors text-left cursor-pointer">
+                <span class="material-symbols-outlined text-[16px] text-on-surface-variant">code</span>
+                <span>Practice Problems</span>
+              </button>
+            </div>
+
+            <div class="h-px bg-surface-container-high my-1.5"></div>
+
+            <!-- Log out Button -->
+            <button id="btn-dropdown-logout" role="menuitem" type="button"
+              class="w-full flex items-center gap-2 px-3 py-2 text-xs font-semibold text-error hover:bg-error/15 rounded-lg transition-colors text-left cursor-pointer group">
+              <span class="material-symbols-outlined text-[16px] text-error transition-transform group-hover:-translate-x-0.5">logout</span>
+              <span>Log out</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="btn-mobile-menu" class="md:hidden p-2 rounded-lg text-on-surface-variant hover:text-on-surface"
+          aria-label="Toggle Navigation Menu">
+          <span class="material-symbols-outlined text-[24px]">menu</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Navigation -->
+  <div id="mobile-drawer" class="fixed inset-0 z-50 hidden md:hidden">
+    <div id="mobile-backdrop" class="fixed inset-0 bg-background/80 backdrop-blur-sm transition-opacity opacity-0">
+    </div>
+    <div
+      class="fixed right-0 top-0 bottom-0 w-64 bg-surface-container-low border-l border-surface-container p-6 flex flex-col gap-4 shadow-2xl transition-transform translate-x-full"
+      id="mobile-panel">
+      <div class="flex items-center justify-between border-b border-surface-container pb-4">
+        <span class="font-headline-md text-headline-md text-on-surface">Menu</span>
+        <button id="btn-close-mobile" class="p-1 rounded text-on-surface-variant hover:text-on-surface">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+      <nav class="flex flex-col gap-2 font-label-sm">
+        <button data-nav="problems"
+          class="mobile-nav-btn text-left px-3 py-2 rounded-lg text-on-surface bg-surface-container flex items-center gap-2">
+          <span class="material-symbols-outlined text-[18px]">list_alt</span> Problems
+        </button>
+        <button data-nav="solve"
+          class="mobile-nav-btn text-left px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface flex items-center gap-2">
+          <span class="material-symbols-outlined text-[18px]">terminal</span> Workspace
+        </button>
+        <button data-nav="submission"
+          class="mobile-nav-btn text-left px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface flex items-center gap-2">
+          <span class="material-symbols-outlined text-[18px]">fact_check</span> Results
+        </button>
+        <button data-nav="dashboard"
+          class="mobile-nav-btn text-left px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface flex items-center gap-2">
+          <span class="material-symbols-outlined text-[18px]">analytics</span> Progress
+        </button>
+      </nav>
+      <div id="mobile-sync-wrapper" class="mt-auto pt-4 border-t border-surface-container">
+        <button id="btn-mobile-sync-status"
+          class="w-full py-2.5 px-3 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm font-semibold flex items-center justify-center gap-2 border border-surface-container-high transition-colors">
+          <span class="material-symbols-outlined text-[18px] text-primary">sync</span>
+          <span>Automatic Sync Status</span>
+          <span id="mobile-sync-badge" class="px-1.5 py-0.5 rounded-full bg-primary/20 text-primary text-[11px] font-mono font-semibold">2 new</span>
+        </button>
+      </div>
+      <!-- Mobile Drawer Auth Section -->
+      <div id="mobile-auth-section" class="pt-3 border-t border-surface-container/60 space-y-2">
+        <div id="mobile-auth-logged-in" class="space-y-2 hidden">
+          <div class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-surface-container">
+            <div id="mobile-avatar-badge" class="w-7 h-7 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold text-xs shrink-0 select-none">AM</div>
+            <div class="min-w-0 flex-1">
+              <div id="mobile-user-name" class="font-semibold text-xs text-on-surface truncate">Alex Mercer</div>
+              <div id="mobile-user-email" class="font-mono text-[11px] text-on-surface-variant truncate">alex.mercer@example.com</div>
+            </div>
+          </div>
+          <button id="btn-mobile-logout" type="button"
+            class="w-full py-2 px-3 rounded-lg bg-error/10 hover:bg-error/20 text-error font-label-sm text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer">
+            <span class="material-symbols-outlined text-[16px]">logout</span>
+            <span>Log out</span>
+          </button>
+        </div>
+        <div id="mobile-auth-logged-out" class="space-y-2">
+          <button id="btn-mobile-login" type="button"
+            class="w-full py-2 px-3 rounded-lg border border-surface-container-high hover:bg-surface-container text-on-surface font-label-sm text-xs font-medium flex items-center justify-center gap-2 transition-colors cursor-pointer">
+            <span class="material-symbols-outlined text-[16px]">login</span>
+            <span>Log in</span>
+          </button>
+          <button id="btn-mobile-register" type="button"
+            class="w-full py-2 px-3 rounded-lg bg-primary hover:bg-primary/90 text-on-primary font-label-sm text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer">
+            <span class="material-symbols-outlined text-[16px]">person_add</span>
+            <span>Create account</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MAIN CONTENT CONTAINER                                                    -->
+  <!-- ========================================================================= -->
+  <main id="main-content" class="w-full pt-16 min-h-screen">
+
+    <!-- ======================================================================= -->
+    <!-- VIEW 0: AUTHENTICATION / LOGIN & SIGN UP SCREEN                         -->
+    <!-- ======================================================================= -->
+    <section id="view-login" class="page-view active w-full">
+      <div class="max-w-container-max mx-auto px-gutter py-12 flex flex-col items-center justify-center min-h-[calc(100vh-8rem)] relative">
+        <!-- Ambient Glow Effects -->
+        <div class="absolute -top-10 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+        <div class="absolute -bottom-10 right-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+
+        <!-- Auth Card Container -->
+        <div class="w-full max-w-md bg-surface-container-low/90 backdrop-blur-xl border border-surface-container-high rounded-2xl p-6 sm:p-8 shadow-2xl relative z-10">
+          
+          <!-- Brand Header -->
+          <div class="text-center">
+            <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-surface-container border border-surface-container-high mb-3 shadow-inner">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50" width="36" height="36" fill="none" class="w-8 h-8">
+                <rect x="2" y="5" width="40" height="40" rx="10" fill="#0b1326" stroke="#1e293b" stroke-width="1.5" />
+                <path d="M16 25L10 25L16 19M16 31L10 25" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M28 25L34 25L28 19M28 31L34 25" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M22 17L18 24H26L22 17Z" fill="#10b981" />
+                <path d="M22 25V33" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" />
+              </svg>
+            </div>
+            <h1 id="auth-main-title" class="text-xl sm:text-2xl font-bold text-on-surface tracking-tight">Sign in to CodeGen AI</h1>
+            <p id="auth-main-subtitle" class="text-xs text-on-surface-variant mt-1">Master technical interviews with adaptive Socratic AI mentorship.</p>
+          </div>
+
+          <!-- Auth Mode Toggle Tabs -->
+          <div class="flex items-center p-1 bg-surface-container rounded-xl mt-6 border border-surface-container-high" role="tablist" aria-label="Authentication modes">
+            <button type="button" id="tab-auth-login" role="tab" aria-selected="true"
+              class="flex-1 py-1.5 px-3 rounded-lg text-xs font-semibold text-on-surface bg-surface-container-high shadow-sm transition-all text-center cursor-pointer">
+              Log in
+            </button>
+            <button type="button" id="tab-auth-register" role="tab" aria-selected="false"
+              class="flex-1 py-1.5 px-3 rounded-lg text-xs font-medium text-on-surface-variant hover:text-on-surface transition-all text-center cursor-pointer">
+              Create account
+            </button>
+          </div>
+
+          <!-- Inline Feedback Alert Banner -->
+          <div id="auth-error-banner" class="hidden mt-4 p-3 rounded-lg bg-error-container/30 border border-error/40 text-error text-xs flex items-start gap-2" role="alert" aria-live="polite">
+            <span class="material-symbols-outlined text-[18px] shrink-0">error</span>
+            <span id="auth-error-banner-text" class="flex-1">Invalid credentials.</span>
+          </div>
+
+          <!-- Form Body -->
+          <form id="auth-form" class="mt-4 space-y-4" novalidate>
+            <!-- Name Field (Register Mode Only) -->
+            <div id="auth-name-group" class="hidden space-y-1.5">
+              <label for="auth-input-name" class="block text-xs font-medium text-on-surface-variant">Full Name</label>
+              <div class="relative">
+                <input id="auth-input-name" name="name" type="text" autocomplete="name" placeholder="e.g. Alex Mercer"
+                  class="w-full pl-9 pr-3.5 py-2.5 rounded-lg bg-surface-container border border-surface-container-high text-on-surface placeholder:text-on-surface-variant/40 text-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" />
+                <span class="material-symbols-outlined absolute left-2.5 top-2.5 text-[18px] text-on-surface-variant pointer-events-none">person</span>
+              </div>
+            </div>
+
+            <!-- Email Field -->
+            <div class="space-y-1.5">
+              <label for="auth-input-email" class="block text-xs font-medium text-on-surface-variant">Email address</label>
+              <div class="relative">
+                <input id="auth-input-email" name="email" type="email" autocomplete="email" required placeholder="name@example.com" value="alex.mercer@example.com"
+                  class="w-full pl-9 pr-3.5 py-2.5 rounded-lg bg-surface-container border border-surface-container-high text-on-surface placeholder:text-on-surface-variant/40 text-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" />
+                <span class="material-symbols-outlined absolute left-2.5 top-2.5 text-[18px] text-on-surface-variant pointer-events-none">mail</span>
+              </div>
+            </div>
+
+            <!-- Password Field -->
+            <div class="space-y-1.5">
+              <div class="flex items-center justify-between">
+                <label for="auth-input-password" class="block text-xs font-medium text-on-surface-variant">Password</label>
+              </div>
+              <div class="relative">
+                <input id="auth-input-password" name="password" type="password" autocomplete="current-password" required placeholder="••••••••••••" value="demo12345"
+                  class="w-full pl-9 pr-10 py-2.5 rounded-lg bg-surface-container border border-surface-container-high text-on-surface placeholder:text-on-surface-variant/40 text-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" />
+                <span class="material-symbols-outlined absolute left-2.5 top-2.5 text-[18px] text-on-surface-variant pointer-events-none">lock</span>
+                <button type="button" id="btn-toggle-password-visibility" aria-label="Toggle password visibility"
+                  class="absolute right-2.5 top-2 text-on-surface-variant hover:text-on-surface p-1 rounded transition-colors cursor-pointer">
+                  <span class="material-symbols-outlined text-[18px]" id="icon-toggle-password">visibility</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="btn-auth-submit"
+              class="w-full py-2.5 px-4 rounded-lg bg-primary hover:bg-primary/90 text-on-primary font-semibold text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer mt-3 disabled:opacity-50">
+              <span id="auth-submit-spinner" class="material-symbols-outlined text-[18px] animate-spin hidden">progress_activity</span>
+              <span id="auth-submit-label">Log in</span>
+            </button>
+          </form>
+
+          <!-- Quick Demo Logins Section -->
+          <div class="mt-6 pt-5 border-t border-surface-container-high">
+            <div class="text-[11px] font-label-sm text-on-surface-variant uppercase tracking-wider mb-2.5 text-center">Quick Demo Access</div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <button type="button" id="btn-quick-login-admin"
+                class="px-3 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high border border-surface-container-high text-on-surface hover:text-primary text-xs font-medium transition-colors flex items-center gap-2 text-left cursor-pointer group">
+                <span class="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-[10px] font-bold group-hover:bg-primary group-hover:text-on-primary transition-colors">AM</span>
+                <div class="min-w-0 flex-1">
+                  <div class="font-semibold text-[11px] truncate">Alex Mercer</div>
+                  <div class="text-[10px] text-on-surface-variant">Admin Demo</div>
+                </div>
+              </button>
+              <button type="button" id="btn-quick-login-user"
+                class="px-3 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high border border-surface-container-high text-on-surface hover:text-secondary text-xs font-medium transition-colors flex items-center gap-2 text-left cursor-pointer group">
+                <span class="w-6 h-6 rounded-full bg-secondary/20 text-secondary flex items-center justify-center text-[10px] font-bold group-hover:bg-secondary group-hover:text-on-secondary transition-colors">JL</span>
+                <div class="min-w-0 flex-1">
+                  <div class="font-semibold text-[11px] truncate">Jordan Lee</div>
+                  <div class="text-[10px] text-on-surface-variant">Candidate Demo</div>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Footer Trust Bar -->
+          <div class="mt-6 pt-4 border-t border-surface-container text-center">
+            <p class="text-[11px] text-on-surface-variant/70">
+              Deterministic test cases &bull; 256-bit secure session &bull; WAI-ARIA accessible
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- VIEW 1: PROBLEMS CATALOG (Stitch Screen 1581c9f4b46340278e98b9f37a739810)-->
+    <!-- ======================================================================= -->
+    <section id="view-problems" class="page-view w-full">
+      <div class="max-w-container-max mx-auto px-gutter py-lg w-full">
+
+        <!-- Top KPI Grid: Instant Context & Telemetry -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-md mb-lg">
+          <div
+            class="bg-surface-container-low rounded-xl p-md flex flex-col justify-between shadow-sm border border-surface-container">
+            <div class="flex items-center justify-between text-on-surface-variant mb-xs">
+              <span class="font-label-sm text-label-sm uppercase tracking-wider">Solved Velocity</span>
+              <span class="material-symbols-outlined text-[20px] text-primary">trending_up</span>
+            </div>
+            <div class="flex items-baseline gap-xs">
+              <span class="font-headline-lg text-headline-lg font-bold text-on-surface">342</span>
+              <span class="font-label-sm text-label-sm text-on-surface-variant">/ 1,248 total</span>
+            </div>
+            <div class="w-full bg-surface-container-highest h-1.5 rounded-full mt-sm overflow-hidden flex">
+              <div class="bg-primary h-full" style="width: 27.4%" title="Easy: 27.4%"></div>
+              <div class="bg-secondary h-full" style="width: 14.1%" title="Medium: 14.1%"></div>
+              <div class="bg-tertiary h-full" style="width: 4.5%" title="Hard: 4.5%"></div>
+            </div>
+          </div>
+
+          <div
+            class="bg-surface-container-low rounded-xl p-md flex flex-col justify-between shadow-sm border border-surface-container">
+            <div class="flex items-center justify-between text-on-surface-variant mb-xs">
+              <span class="font-label-sm text-label-sm uppercase tracking-wider">Active Streak</span>
+              <span class="material-symbols-outlined text-[20px] text-primary"
+                style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+            </div>
+            <div class="flex items-baseline gap-xs">
+              <span class="font-headline-lg text-headline-lg font-bold text-primary">19</span>
+              <span class="font-body-md text-body-md text-on-surface-variant">Days in a row</span>
+            </div>
+            <div class="font-label-sm text-label-sm text-on-surface-variant mt-sm flex items-center gap-xs">
+              <span class="w-2 h-2 rounded-full bg-primary inline-block"></span>
+              Personal best: 42 days
+            </div>
+          </div>
+
+          <div
+            class="bg-surface-container-low rounded-xl p-md flex flex-col justify-between shadow-sm border border-surface-container">
+            <div class="flex items-center justify-between text-on-surface-variant mb-xs">
+              <span class="font-label-sm text-label-sm uppercase tracking-wider">Accuracy Matrix</span>
+              <span class="material-symbols-outlined text-[20px] text-secondary">analytics</span>
+            </div>
+            <div class="flex items-baseline gap-xs">
+              <span class="font-headline-lg text-headline-lg font-bold text-secondary">68.4%</span>
+              <span class="font-label-sm text-label-sm text-on-surface-variant">first attempt</span>
+            </div>
+            <div class="font-label-sm text-label-sm text-on-surface-variant mt-sm flex items-center gap-xs">
+              <span class="text-primary font-semibold">+3.2%</span> higher than peer median
+            </div>
+          </div>
+
+          <div
+            class="bg-surface-container-low rounded-xl p-md flex flex-col justify-between shadow-sm border border-surface-container">
+            <div class="flex items-center justify-between text-on-surface-variant mb-xs">
+              <span class="font-label-sm text-label-sm uppercase tracking-wider">Focus Target</span>
+              <span class="material-symbols-outlined text-[20px] text-tertiary">track_changes</span>
+            </div>
+            <div class="flex items-baseline gap-xs">
+              <span class="font-headline-md text-headline-md font-bold text-tertiary">Trees &amp; DP</span>
+            </div>
+            <div class="font-label-sm text-label-sm text-on-surface-variant mt-sm flex items-center gap-xs">
+              <span class="material-symbols-outlined text-[14px]">psychology</span>
+              3 weak spots identified
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Workspace Split -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-lg items-start">
+
+          <!-- Primary Problems Workstation (8-9 Cols) -->
+          <div class="lg:col-span-8 xl:col-span-9 flex flex-col gap-md">
+
+            <!-- Search, Topic Rail & Filter Header -->
+            <div
+              class="bg-surface-container-low rounded-xl p-md flex flex-col gap-sm shadow-sm border border-surface-container">
+              <!-- Omnibar Search Bar -->
+              <div class="relative w-full">
+                <div
+                  class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-on-surface-variant">
+                  <span class="material-symbols-outlined text-[20px]">search</span>
+                </div>
+                <input id="problem-search" type="text"
+                  class="w-full bg-surface text-on-surface pl-10 pr-24 py-2.5 rounded-lg outline-none focus:ring-1 focus:ring-primary border border-surface-container-high transition-all font-body-md text-body-md placeholder:text-on-surface-variant/60"
+                  placeholder="Search problems by name, tag, or number..." />
+                <div class="absolute inset-y-0 right-0 pr-3 flex items-center gap-1.5 pointer-events-none">
+                  <kbd
+                    class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-mono">⌘K</kbd>
+                  <kbd
+                    class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-mono">/</kbd>
+                </div>
+              </div>
+
+              <!-- Filters Row: Algorithm Category Horizontal Tab Bar & Company Dropdown Filter -->
+              <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
+                <!-- Algorithm Category Horizontal Tab Bar (Task 1 Taxonomy) -->
+                <div class="flex items-center gap-1.5 overflow-x-auto pb-1 pt-0.5 flex-1 min-w-0" id="topic-rail" role="tablist" aria-label="Algorithm Categories">
+                  <span
+                    class="font-label-sm text-label-sm text-on-surface-variant mr-1 shrink-0 uppercase tracking-wider font-semibold">Category:</span>
+                  <button data-topic="All" role="tab" aria-selected="true"
+                    class="topic-filter-btn px-3.5 py-1.5 rounded-lg bg-primary-container text-on-primary-container font-label-sm text-label-sm font-semibold transition-all whitespace-nowrap shadow-sm">All</button>
+                  <button data-topic="Dynamic Programming" role="tab" aria-selected="false"
+                    class="topic-filter-btn px-3.5 py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-label-sm text-label-sm transition-all whitespace-nowrap">Dynamic Programming</button>
+                  <button data-topic="Backtracking" role="tab" aria-selected="false"
+                    class="topic-filter-btn px-3.5 py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-label-sm text-label-sm transition-all whitespace-nowrap">Backtracking</button>
+                  <button data-topic="Greedy" role="tab" aria-selected="false"
+                    class="topic-filter-btn px-3.5 py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-label-sm text-label-sm transition-all whitespace-nowrap">Greedy</button>
+                  <button data-topic="Divide & Conquer" role="tab" aria-selected="false"
+                    class="topic-filter-btn px-3.5 py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-label-sm text-label-sm transition-all whitespace-nowrap">Divide &amp; Conquer</button>
+                  <button data-topic="Two Pointers" role="tab" aria-selected="false"
+                    class="topic-filter-btn px-3.5 py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-label-sm text-label-sm transition-all whitespace-nowrap">Two Pointers</button>
+                  <button data-topic="Other" role="tab" aria-selected="false"
+                    class="topic-filter-btn px-3.5 py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-label-sm text-label-sm transition-all whitespace-nowrap">Other</button>
+                </div>
+
+                <!-- Company Filter Dropdown (Task 2) -->
+                <div class="flex items-center gap-2 shrink-0 self-start lg:self-center">
+                  <label for="company-filter" class="font-label-sm text-label-sm text-on-surface-variant shrink-0 uppercase tracking-wider font-semibold">
+                    Company:
+                  </label>
+                  <div class="relative">
+                    <select id="company-filter"
+                      class="appearance-none pl-3 pr-8 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high border border-surface-container-high text-on-surface font-label-sm text-label-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all cursor-pointer"
+                      style="background-color: var(--surface-container, #1e2638); color: var(--on-surface, #e2e8f0);"
+                      aria-label="Filter problems by company">
+                      <option value="All">All Companies</option>
+                      <option value="Google">Google</option>
+                      <option value="Meta">Meta</option>
+                      <option value="Amazon">Amazon</option>
+                      <option value="Apple">Apple</option>
+                      <option value="Netflix">Netflix</option>
+                      <option value="General">General (Agnostic)</option>
+                    </select>
+                    <span class="material-symbols-outlined text-[18px] text-on-surface-variant pointer-events-none absolute right-2 top-1/2 -translate-y-1/2">
+                      expand_more
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Secondary Filters: Difficulty & Status -->
+              <div
+                class="flex flex-wrap items-center justify-between gap-sm pt-xs border-t border-surface-container/60">
+                <!-- Difficulty Filters -->
+                <div class="flex items-center gap-xs" id="diff-filters">
+                  <span
+                    class="font-label-sm text-label-sm text-on-surface-variant mr-1 uppercase tracking-wider">Difficulty:</span>
+                  <button data-diff="All"
+                    class="diff-btn px-3 py-1 rounded-lg bg-surface-container-highest text-on-surface font-label-sm text-label-sm font-semibold transition-colors">All</button>
+                  <button data-diff="Easy"
+                    class="diff-btn px-3 py-1 rounded-lg bg-surface-container-low text-primary hover:bg-surface-container font-label-sm text-label-sm transition-colors">Easy</button>
+                  <button data-diff="Medium"
+                    class="diff-btn px-3 py-1 rounded-lg bg-surface-container-low text-secondary hover:bg-surface-container font-label-sm text-label-sm transition-colors">Medium</button>
+                  <button data-diff="Hard"
+                    class="diff-btn px-3 py-1 rounded-lg bg-surface-container-low text-tertiary hover:bg-surface-container font-label-sm text-label-sm transition-colors">Hard</button>
+                </div>
+
+                <!-- Status Filters -->
+                <div class="flex items-center gap-xs overflow-x-auto" id="status-filters">
+                  <span
+                    class="font-label-sm text-label-sm text-on-surface-variant mr-1 uppercase tracking-wider">Status:</span>
+                  <button data-status="All"
+                    class="status-btn px-3 py-1 rounded-lg bg-surface-container-highest text-on-surface font-label-sm text-label-sm font-semibold transition-colors">All</button>
+                  <button data-status="Not started"
+                    class="status-btn px-3 py-1 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-sm text-label-sm transition-colors">Not
+                    started</button>
+                  <button data-status="In progress"
+                    class="status-btn px-3 py-1 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-sm text-label-sm transition-colors">In
+                    progress</button>
+                  <button data-status="Solved"
+                    class="status-btn px-3 py-1 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-sm text-label-sm transition-colors">Solved</button>
+                  <button data-status="Attempted"
+                    class="status-btn px-3 py-1 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-sm text-label-sm transition-colors">Attempted</button>
+                  <button data-status="Saved"
+                    class="status-btn px-3 py-1 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-sm text-label-sm transition-colors">Saved</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Active 'New Questions' Filter Banner (Toggled via 'View new') -->
+            <div id="banner-new-filter" class="hidden items-center justify-between px-4 py-2.5 rounded-xl bg-primary/10 border border-primary/30 text-primary font-label-sm text-label-sm">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+                <span>Showing newly synced questions added since last visit (<span id="new-filter-count" class="font-bold">0</span>)</span>
+              </div>
+              <button id="btn-clear-new-filter" type="button" class="px-2.5 py-1 rounded-md bg-surface-container hover:bg-surface-container-high text-on-surface text-xs font-semibold transition-colors flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">close</span>
+                Clear filter
+              </button>
+            </div>
+
+            <!-- Top-Level Question Type Filter Toggle ("Programming" / "Conceptual" / "All") -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 bg-surface-container-low rounded-xl border border-surface-container shadow-xs">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-[20px]">filter_list</span>
+                <span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-on-surface-variant">Question Type:</span>
+              </div>
+              <div class="inline-flex p-1 rounded-lg bg-surface-container border border-surface-container-high" role="radiogroup" aria-label="Filter problems by question type" id="question-type-toggle">
+                <button type="button" role="radio" aria-checked="false" data-qtype="Programming" id="toggle-qtype-programming"
+                  class="qtype-toggle-btn px-4 py-1.5 rounded-md font-label-sm text-label-sm font-semibold transition-all flex items-center gap-1.5 text-on-surface-variant hover:text-on-surface">
+                  <span class="material-symbols-outlined text-[16px]">code</span>
+                  <span>Programming</span>
+                  <span class="ml-1 px-1.5 py-0.2 rounded-full text-[11px] font-mono bg-surface-container-highest text-on-surface-variant" id="count-qtype-programming">12</span>
+                </button>
+                <button type="button" role="radio" aria-checked="false" data-qtype="Conceptual" id="toggle-qtype-conceptual"
+                  class="qtype-toggle-btn px-4 py-1.5 rounded-md font-label-sm text-label-sm font-semibold transition-all flex items-center gap-1.5 text-on-surface-variant hover:text-on-surface">
+                  <span class="material-symbols-outlined text-[16px]">psychology</span>
+                  <span>Conceptual</span>
+                  <span class="ml-1 px-1.5 py-0.2 rounded-full text-[11px] font-mono bg-surface-container-highest text-on-surface-variant" id="count-qtype-conceptual">5</span>
+                </button>
+                <button type="button" role="radio" aria-checked="true" data-qtype="All" id="toggle-qtype-all"
+                  class="qtype-toggle-btn px-4 py-1.5 rounded-md font-label-sm text-label-sm font-semibold transition-all flex items-center gap-1.5 bg-primary-container text-on-primary-container shadow-sm">
+                  <span class="material-symbols-outlined text-[16px]">apps</span>
+                  <span>All</span>
+                  <span class="ml-1 px-1.5 py-0.2 rounded-full text-[11px] font-mono bg-primary/20 text-on-primary-container" id="count-qtype-all">17</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Problem Table Container -->
+            <div class="bg-surface-container-low rounded-xl overflow-hidden shadow-sm border border-surface-container">
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse" aria-label="Problems Catalog">
+                  <thead>
+                    <tr
+                      class="bg-surface-container text-on-surface-variant font-label-sm text-label-sm border-b border-surface-container-high">
+                      <th scope="col" class="py-3 px-4 w-12 text-center">
+                        <label class="inline-flex items-center justify-center cursor-pointer min-w-[24px] min-h-[24px] p-1 -m-1" title="Select all problems in current view">
+                          <input type="checkbox" id="select-all-problems" aria-label="Select all problems in current view"
+                            class="w-4 h-4 rounded border-surface-container-high text-primary focus:ring-primary/40 bg-surface-container cursor-pointer accent-primary" />
+                        </label>
+                      </th>
+                      <th scope="col" class="py-3 px-4 font-medium uppercase tracking-wider w-36">Status</th>
+                      <th scope="col" class="py-3 px-4 font-medium uppercase tracking-wider">Problem</th>
+                      <th scope="col" class="py-3 px-4 font-medium uppercase tracking-wider w-28">Difficulty</th>
+                      <th scope="col" class="py-3 px-4 font-medium uppercase tracking-wider w-32">Company</th>
+                      <th scope="col" class="py-3 px-4 font-medium uppercase tracking-wider hidden md:table-cell">Category
+                      </th>
+                      <th scope="col" class="py-3 px-4 font-medium uppercase tracking-wider text-right w-32">Acceptance
+                      </th>
+                      <th scope="col" class="py-3 px-4 font-medium uppercase tracking-wider text-right w-28">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="problem-rows" class="font-body-md text-body-md divide-y divide-surface-container/50">
+                    <!-- Populated dynamically via app.js -->
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Table Footer Pagination bar -->
+              <div
+                class="p-4 bg-surface-container flex flex-col sm:flex-row items-center justify-between gap-sm text-on-surface-variant">
+                <span class="font-label-sm text-label-sm" id="table-count">Showing 1-7 of 1,248 problems</span>
+                <div class="flex items-center gap-1 font-label-sm">
+                  <button
+                    class="p-1.5 rounded-lg hover:bg-surface-container-high text-on-surface-variant disabled:opacity-40"
+                    disabled>
+                    <span class="material-symbols-outlined text-[18px]">first_page</span>
+                  </button>
+                  <button
+                    class="p-1.5 rounded-lg hover:bg-surface-container-high text-on-surface-variant disabled:opacity-40"
+                    disabled>
+                    <span class="material-symbols-outlined text-[18px]">chevron_left</span>
+                  </button>
+                  <span class="px-3 py-1 rounded-lg bg-surface-container-highest text-on-surface font-semibold">1</span>
+                  <button class="px-3 py-1 rounded-lg hover:bg-surface-container-high text-on-surface">2</button>
+                  <button class="px-3 py-1 rounded-lg hover:bg-surface-container-high text-on-surface">3</button>
+                  <span class="px-1 text-on-surface-variant">...</span>
+                  <button class="px-3 py-1 rounded-lg hover:bg-surface-container-high text-on-surface">179</button>
+                  <button class="p-1.5 rounded-lg hover:bg-surface-container-high text-on-surface">
+                    <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+                  </button>
+                  <button class="p-1.5 rounded-lg hover:bg-surface-container-high text-on-surface">
+                    <span class="material-symbols-outlined text-[18px]">last_page</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right-Side Compact Intel Panel (3-4 Cols) -->
+          <div class="lg:col-span-4 xl:col-span-3 flex flex-col gap-md">
+
+            <!-- Daily Challenge High-Voltage Card -->
+            <div
+              class="relative bg-surface-container-low rounded-xl p-md overflow-hidden shadow-sm border border-surface-container">
+              <div
+                class="absolute -right-6 -bottom-6 w-32 h-32 bg-tertiary-container/10 rounded-full blur-2xl pointer-events-none">
+              </div>
+              <div class="flex items-center justify-between mb-xs">
+                <div class="flex items-center gap-xs">
+                  <span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+                  <span class="font-label-sm text-label-sm font-bold tracking-wider text-tertiary uppercase">Daily
+                    Challenge</span>
+                </div>
+                <span
+                  class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container-high text-primary font-semibold font-mono">+10
+                  pts</span>
+              </div>
+              <h3 class="font-headline-md text-headline-md font-semibold text-on-surface mt-xs">
+                Minimum Window Substring
+              </h3>
+              <div class="flex items-center gap-xs mt-1 mb-sm">
+                <span class="font-label-sm text-label-sm font-semibold text-tertiary">Hard</span>
+                <span class="text-on-surface-variant font-label-sm text-label-sm">•</span>
+                <span class="font-label-sm text-label-sm text-on-surface-variant">Sliding Window, Hash</span>
+              </div>
+
+              <!-- Countdown Timer -->
+              <div class="p-sm rounded-lg bg-surface-container flex items-center justify-between mb-md">
+                <div class="flex items-center gap-xs text-on-surface-variant">
+                  <span class="material-symbols-outlined text-[16px]">schedule</span>
+                  <span class="font-label-sm text-label-sm">Time remaining</span>
+                </div>
+                <span id="daily-countdown" class="font-code-md text-code-md text-on-surface font-mono font-medium">08h :
+                  22m : 14s</span>
+              </div>
+
+              <button id="btn-solve-daily"
+                class="w-full py-2.5 px-4 rounded-lg bg-primary-container text-on-primary-container hover:bg-primary font-label-sm text-label-sm font-semibold flex items-center justify-center gap-xs transition-all shadow-md">
+                <span>Solve Daily Challenge</span>
+                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+              </button>
+            </div>
+
+            <!-- Recommended For You Card -->
+            <div
+              class="bg-surface-container-low rounded-xl p-md flex flex-col gap-sm shadow-sm border border-surface-container">
+              <div class="flex items-center justify-between">
+                <span
+                  class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-medium">Recommended
+                  for you</span>
+                <span class="material-symbols-outlined text-[18px] text-primary">auto_awesome</span>
+              </div>
+              <div class="flex items-baseline gap-xs">
+                <span class="font-headline-md text-[20px] text-on-surface font-bold">Targeting Trees &amp; DP</span>
+              </div>
+              <p class="font-label-sm text-label-sm text-on-surface-variant">
+                Based on your active streak and recent weak evaluation tests.
+              </p>
+
+              <!-- Recommendations List -->
+              <div class="flex flex-col gap-xs mt-xs">
+                <button data-solve-id="104"
+                  class="quick-solve-rec text-left p-3 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors flex flex-col gap-1 group">
+                  <div class="flex items-center justify-between">
+                    <span
+                      class="font-body-md text-body-md font-medium text-on-surface group-hover:text-primary transition-colors">
+                      104. Maximum Depth of Binary Tree
+                    </span>
+                    <span class="font-label-sm text-label-sm font-semibold text-primary">Easy</span>
+                  </div>
+                  <div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+                    <span>Trees • Depth-First Search</span>
+                    <span class="text-primary group-hover:translate-x-0.5 transition-transform flex items-center">
+                      Solve <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+                    </span>
+                  </div>
+                </button>
+
+                <button data-solve-id="322"
+                  class="quick-solve-rec text-left p-3 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors flex flex-col gap-1 group">
+                  <div class="flex items-center justify-between">
+                    <span
+                      class="font-body-md text-body-md font-medium text-on-surface group-hover:text-primary transition-colors">
+                      322. Coin Change
+                    </span>
+                    <span class="font-label-sm text-label-sm font-semibold text-secondary">Medium</span>
+                  </div>
+                  <div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+                    <span>Dynamic Programming • BFS</span>
+                    <span class="text-primary group-hover:translate-x-0.5 transition-transform flex items-center">
+                      Solve <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+                    </span>
+                  </div>
+                </button>
+
+                <button data-solve-id="236"
+                  class="quick-solve-rec text-left p-3 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors flex flex-col gap-1 group">
+                  <div class="flex items-center justify-between">
+                    <span
+                      class="font-body-md text-body-md font-medium text-on-surface group-hover:text-primary transition-colors">
+                      236. Lowest Common Ancestor
+                    </span>
+                    <span class="font-label-sm text-label-sm font-semibold text-secondary">Medium</span>
+                  </div>
+                  <div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+                    <span>Binary Tree • Recursion</span>
+                    <span class="text-primary group-hover:translate-x-0.5 transition-transform flex items-center">
+                      Solve <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+                    </span>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <!-- Weekly Contest Sprint Preview -->
+            <div
+              class="bg-surface-container-low rounded-xl p-md flex flex-col justify-between shadow-sm border border-surface-container">
+              <div class="flex items-center justify-between mb-xs">
+                <span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Weekly
+                  Contest 389</span>
+                <span class="material-symbols-outlined text-[18px] text-secondary">military_tech</span>
+              </div>
+              <p class="font-body-md text-body-md text-on-surface font-medium">Starts in 2 days, 14 hours</p>
+              <p class="font-label-sm text-label-sm text-on-surface-variant mt-1 mb-md">4 Problems • 90 Minutes • Global
+                Rating impact</p>
+              <button id="btn-register-contest"
+                class="w-full py-2 px-3 rounded-lg bg-surface-container hover:bg-surface-container-highest text-on-surface font-label-sm text-label-sm font-semibold transition-colors flex items-center justify-center gap-xs">
+                <span class="material-symbols-outlined text-[16px]">app_registration</span>
+                <span>Register for Contest</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- VIEW 2: SOLVE WORKSPACE (Stitch Screen 0193ad36ebcf4eaa9b64edf432f57511)  -->
+    <!-- ======================================================================= -->
+    <section id="view-solve" class="page-view w-full">
+
+      <!-- IDE Utility Top Bar -->
+      <div
+        class="w-full bg-surface-container-lowest px-4 py-2.5 flex items-center justify-between border-b border-surface-container shadow-sm">
+        <div class="flex items-center gap-3">
+          <button data-nav="problems"
+            class="flex items-center gap-1.5 text-on-surface-variant hover:text-on-surface transition-colors font-label-sm text-label-sm">
+            <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+            <span>Problem List</span>
+          </button>
+          <span class="text-outline-variant font-label-sm text-label-sm">/</span>
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+            <span class="font-label-sm text-label-sm text-on-surface font-medium" id="workspace-session-tag">Session
+              #4819</span>
+            <span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm"
+              id="workspace-topic-tag">Dynamic Programming</span>
+          </div>
+        </div>
+
+        <!-- Timer & Workspace Focus Controls -->
+        <div class="flex items-center gap-3">
+          <div
+            class="flex items-center gap-2 bg-surface-container-low px-3 py-1 rounded border border-surface-container">
+            <span class="material-symbols-outlined text-primary text-[16px]">timer</span>
+            <span class="font-label-sm text-label-sm text-on-surface font-mono" id="timer-display">14:32</span>
+            <button id="timer-toggle-btn" class="text-on-surface-variant hover:text-on-surface transition-colors ml-1"
+              title="Pause / Resume Timer">
+              <span class="material-symbols-outlined text-[15px]" id="timer-icon">pause</span>
+            </button>
+          </div>
+          <div class="flex items-center gap-1">
+            <button id="btn-fullscreen-toggle"
+              class="p-1.5 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"
+              title="Zen Focus Mode">
+              <span class="material-symbols-outlined text-[18px]">fullscreen</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bento Workspace Layout (Programming Questions) -->
+      <div id="workspace-programming-view" class="w-full grid grid-cols-1 lg:grid-cols-12 gap-3 p-3 bg-surface-dim">
+
+        <!-- LEFT PANE: Problem Description & Hints (5 Cols) -->
+        <section
+          class="lg:col-span-5 flex flex-col bg-surface-container-low rounded-lg overflow-hidden border border-surface-container shadow-md h-[calc(100vh-8.5rem)]">
+          <!-- Problem Header -->
+          <div class="p-4 bg-surface-container flex flex-col gap-3">
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex flex-col gap-1">
+                <h1 id="solve-problem-title"
+                  class="font-headline-md text-headline-md text-on-surface font-semibold tracking-tight flex items-center gap-2">
+                  53. Maximum Subarray
+                </h1>
+                <div id="solve-problem-source" class="text-[12px] font-body-sm text-on-surface-variant/80 flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[13px] text-outline">language</span>
+                  <span>via LeetCode</span>
+                </div>
+                <div class="flex items-center gap-2 flex-wrap pt-1">
+                  <span id="solve-problem-diff"
+                    class="px-2 py-0.5 rounded bg-secondary-container/20 text-secondary font-label-sm text-label-sm font-semibold tracking-wider uppercase">
+                    Medium
+                  </span>
+                  <span class="text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[14px] text-primary">check_circle</span>
+                    Acceptance: <strong class="text-on-surface font-semibold">50.4%</strong>
+                  </span>
+                  <span class="text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[14px]">thumb_up</span>
+                    34.8K
+                  </span>
+                </div>
+              </div>
+              <div class="flex items-center gap-1">
+                <button id="btn-save-problem"
+                  class="p-2 rounded hover:bg-surface-bright text-on-surface-variant hover:text-primary transition-all"
+                  title="Save Problem">
+                  <span class="material-symbols-outlined text-[20px]" id="icon-bookmark">bookmark_border</span>
+                </button>
+                <button id="btn-share-problem"
+                  class="p-2 rounded hover:bg-surface-bright text-on-surface-variant hover:text-on-surface transition-all"
+                  title="Share Problem">
+                  <span class="material-symbols-outlined text-[20px]">share</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Problem Tab Navigation -->
+            <div class="flex items-center gap-1 bg-surface-container-lowest p-1 rounded font-label-sm text-label-sm">
+              <button
+                class="problem-tab-btn flex-1 py-1.5 text-center rounded text-on-surface bg-surface-container font-medium transition-all"
+                data-ptab="desc">
+                Description
+              </button>
+              <button
+                class="problem-tab-btn flex-1 py-1.5 text-center rounded text-on-surface-variant hover:text-on-surface transition-all flex items-center justify-center gap-1"
+                data-ptab="hints">
+                Hints <span
+                  class="w-4 h-4 rounded-full bg-surface-container-highest text-[10px] flex items-center justify-center text-primary font-bold">2</span>
+              </button>
+              <button
+                class="problem-tab-btn flex-1 py-1.5 text-center rounded text-on-surface-variant hover:text-on-surface transition-all"
+                data-ptab="solutions">
+                Solutions
+              </button>
+              <button
+                class="problem-tab-btn flex-1 py-1.5 text-center rounded text-on-surface-variant hover:text-on-surface transition-all"
+                data-ptab="submissions">
+                Submissions
+              </button>
+            </div>
+          </div>
+
+          <!-- Problem Content Pane (Scrollable) -->
+          <div class="flex-1 overflow-y-auto p-4 space-y-6 text-on-surface">
+            <!-- TAB: Description -->
+            <div id="panel-ptab-desc" class="space-y-6">
+              <div class="space-y-3">
+                <p class="font-body-md text-body-md text-on-surface leading-relaxed">
+                  Given an integer array <code
+                    class="px-1.5 py-0.5 rounded bg-surface-container text-secondary font-code-md text-code-md">nums</code>,
+                  find the contiguous subarray (containing at least one number) which has the largest sum and return <em
+                    class="text-primary not-italic font-semibold">its sum</em>.
+                </p>
+                <p class="font-body-md text-body-md text-on-surface-variant">
+                  A <strong class="text-on-surface">subarray</strong> is a contiguous part of an array.
+                </p>
+              </div>
+
+              <!-- Interactive Subarray Sum Visualizer -->
+              <div class="p-3 bg-surface-container-lowest rounded-lg border border-surface-container space-y-2">
+                <div class="flex items-center justify-between">
+                  <span
+                    class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Subarray
+                    Sum Visualizer</span>
+                  <span class="font-label-sm text-label-sm text-primary font-mono">Max: 6</span>
+                </div>
+                <div class="flex items-center gap-1 font-code-md text-[13px] overflow-x-auto py-1">
+                  <span
+                    class="visualizer-cell px-2 py-1 bg-surface-container rounded text-on-surface-variant cursor-pointer"
+                    title="Index 0">-2</span>
+                  <span
+                    class="visualizer-cell px-2 py-1 bg-surface-container rounded text-on-surface-variant cursor-pointer"
+                    title="Index 1">1</span>
+                  <span
+                    class="visualizer-cell px-2 py-1 bg-surface-container rounded text-on-surface-variant cursor-pointer"
+                    title="Index 2">-3</span>
+                  <span
+                    class="visualizer-cell px-2.5 py-1 bg-primary-container/30 text-primary font-bold rounded ring-1 ring-primary/40 cursor-pointer"
+                    title="Index 3 (Start of Max Subarray)">4</span>
+                  <span
+                    class="visualizer-cell px-2.5 py-1 bg-primary-container/30 text-primary font-bold rounded ring-1 ring-primary/40 cursor-pointer"
+                    title="Index 4">-1</span>
+                  <span
+                    class="visualizer-cell px-2.5 py-1 bg-primary-container/30 text-primary font-bold rounded ring-1 ring-primary/40 cursor-pointer"
+                    title="Index 5">2</span>
+                  <span
+                    class="visualizer-cell px-2.5 py-1 bg-primary-container/30 text-primary font-bold rounded ring-1 ring-primary/40 cursor-pointer"
+                    title="Index 6 (End of Max Subarray)">1</span>
+                  <span
+                    class="visualizer-cell px-2 py-1 bg-surface-container rounded text-on-surface-variant cursor-pointer"
+                    title="Index 7">-5</span>
+                  <span
+                    class="visualizer-cell px-2 py-1 bg-surface-container rounded text-on-surface-variant cursor-pointer"
+                    title="Index 8">4</span>
+                </div>
+                <div class="text-[12px] font-label-sm text-primary flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[14px]">insights</span>
+                  Maximum contiguous window spans index 3 to 6: [4, -1, 2, 1]
+                </div>
+              </div>
+
+              <!-- Examples -->
+              <div class="space-y-3">
+                <div
+                  class="bg-surface-container p-3.5 rounded-lg space-y-1.5 shadow-inner border border-surface-container-high/60">
+                  <span
+                    class="font-label-sm text-label-sm text-primary uppercase tracking-widest font-semibold block">Example
+                    1</span>
+                  <div class="space-y-0.5 font-code-md text-code-md">
+                    <div class="text-on-surface-variant"><span class="text-on-surface font-semibold">Input:</span> nums
+                      = [-2,1,-3,4,-1,2,1,-5,4]</div>
+                    <div class="text-on-surface-variant"><span class="text-on-surface font-semibold">Output:</span>
+                      <span class="text-primary font-bold">6</span>
+                    </div>
+                    <div class="text-on-surface-variant text-[13px]"><span
+                        class="text-on-surface font-semibold">Explanation:</span> [4,-1,2,1] has the largest sum = 6.
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="bg-surface-container p-3.5 rounded-lg space-y-1.5 shadow-inner border border-surface-container-high/60">
+                  <span
+                    class="font-label-sm text-label-sm text-primary uppercase tracking-widest font-semibold block">Example
+                    2</span>
+                  <div class="space-y-0.5 font-code-md text-code-md">
+                    <div class="text-on-surface-variant"><span class="text-on-surface font-semibold">Input:</span> nums
+                      = [1]</div>
+                    <div class="text-on-surface-variant"><span class="text-on-surface font-semibold">Output:</span>
+                      <span class="text-primary font-bold">1</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="bg-surface-container p-3.5 rounded-lg space-y-1.5 shadow-inner border border-surface-container-high/60">
+                  <span
+                    class="font-label-sm text-label-sm text-primary uppercase tracking-widest font-semibold block">Example
+                    3</span>
+                  <div class="space-y-0.5 font-code-md text-code-md">
+                    <div class="text-on-surface-variant"><span class="text-on-surface font-semibold">Input:</span> nums
+                      = [5,4,-1,7,8]</div>
+                    <div class="text-on-surface-variant"><span class="text-on-surface font-semibold">Output:</span>
+                      <span class="text-primary font-bold">23</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Constraints -->
+              <div class="space-y-2">
+                <span
+                  class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest font-semibold block">Constraints:</span>
+                <ul class="space-y-1.5 font-code-md text-code-md text-on-surface-variant">
+                  <li class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                    <span>1 &lt;= nums.length &lt;= 10<sup>5</sup></span>
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                    <span>-10<sup>4</sup> &lt;= nums[i] &lt;= 10<sup>4</sup></span>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Follow up Callout -->
+              <div
+                class="p-3 bg-secondary-container/10 rounded-lg text-secondary border border-secondary-container/30 space-y-1">
+                <div class="font-label-sm text-label-sm font-semibold flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[16px]">psychology</span> Follow up:
+                </div>
+                <p class="font-body-md text-[14px] text-on-secondary-container">
+                  If you have figured out the O(n) solution, try coding another solution using the divide and conquer
+                  approach, which is more subtle.
+                </p>
+              </div>
+            </div>
+
+            <!-- TAB: Hints (Progressive Socratic Reveal) -->
+            <div id="panel-ptab-hints" class="hidden space-y-4">
+              <div
+                class="p-3 rounded bg-surface-container-high/40 text-on-surface-variant font-label-sm text-label-sm flex items-center gap-2 border border-surface-container">
+                <span class="material-symbols-outlined text-primary text-[18px]">tips_and_updates</span>
+                <span>Progressive hints unveil the underlying intuition step-by-step.</span>
+              </div>
+
+              <div class="bg-surface-container rounded-lg p-4 space-y-3 border border-surface-container-high">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span
+                      class="px-2 py-0.5 rounded bg-surface-container-highest text-primary font-label-sm text-label-sm">Hint
+                      1</span>
+                    <span class="font-body-md text-body-md font-medium text-on-surface">Conceptual Discovery</span>
+                  </div>
+                  <button
+                    class="hint-accordion-btn text-secondary hover:text-on-secondary-container font-label-sm text-label-sm flex items-center gap-1"
+                    data-hint="1">
+                    <span>Show Hint</span>
+                    <span class="material-symbols-outlined text-[16px]">expand_more</span>
+                  </button>
+                </div>
+                <div id="hint-1-text"
+                  class="hidden pt-2 text-on-surface-variant font-body-md text-[15px] leading-relaxed border-t border-surface-container-high/50">
+                  Have you considered <strong class="text-primary">Kadane's algorithm</strong>? Think about iterating
+                  through the array and keeping track of the current maximum subarray ending at the current position.
+                </div>
+              </div>
+
+              <div class="bg-surface-container rounded-lg p-4 space-y-3 border border-surface-container-high">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span
+                      class="px-2 py-0.5 rounded bg-surface-container-highest text-primary font-label-sm text-label-sm">Hint
+                      2</span>
+                    <span class="font-body-md text-body-md font-medium text-on-surface">Local vs Global Optimum</span>
+                  </div>
+                  <button
+                    class="hint-accordion-btn text-secondary hover:text-on-secondary-container font-label-sm text-label-sm flex items-center gap-1"
+                    data-hint="2">
+                    <span>Show Hint</span>
+                    <span class="material-symbols-outlined text-[16px]">expand_more</span>
+                  </button>
+                </div>
+                <div id="hint-2-text"
+                  class="hidden pt-2 text-on-surface-variant font-body-md text-[15px] leading-relaxed border-t border-surface-container-high/50">
+                  Keep track of current subarray sum vs resetting. At every element <code
+                    class="px-1 py-0.5 rounded bg-surface-container-lowest font-code-md text-primary">x</code>, decide
+                  whether to start fresh with <code
+                    class="px-1 py-0.5 rounded bg-surface-container-lowest font-code-md text-primary">x</code> or extend
+                  the previous accumulated sum with <code
+                    class="px-1 py-0.5 rounded bg-surface-container-lowest font-code-md text-primary">current_sum + x</code>.
+                </div>
+              </div>
+            </div>
+
+            <!-- TAB: Solutions -->
+            <div id="panel-ptab-solutions" class="hidden space-y-3">
+              <div class="bg-surface-container p-4 rounded-lg border border-surface-container-high">
+                <div class="flex items-center justify-between">
+                  <h3 class="font-body-md text-body-md font-semibold text-on-surface">1. Kadane's Algorithm (Standard
+                    DP)</h3>
+                  <span class="font-label-sm text-label-sm text-primary">O(N) Time • O(1) Space</span>
+                </div>
+                <p class="font-body-md text-[14px] text-on-surface-variant mt-2 leading-relaxed">
+                  Linear scan computing prefix totals dynamically, dropping prefixes that contribute negative value.
+                </p>
+              </div>
+
+              <div class="bg-surface-container p-4 rounded-lg border border-surface-container-high">
+                <div class="flex items-center justify-between">
+                  <h3 class="font-body-md text-body-md font-semibold text-on-surface">2. Divide &amp; Conquer</h3>
+                  <span class="font-label-sm text-label-sm text-secondary">O(N log N) Time • O(log N) Space</span>
+                </div>
+                <p class="font-body-md text-[14px] text-on-surface-variant mt-2 leading-relaxed">
+                  Recursively compute the maximum subarray in the left half, right half, or crossing the midpoint.
+                </p>
+              </div>
+            </div>
+
+            <!-- TAB: Submissions -->
+            <div id="panel-ptab-submissions" class="hidden space-y-3">
+              <div
+                class="bg-surface-container p-3 rounded flex items-center justify-between font-label-sm text-label-sm border border-surface-container-high">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-primary"></span>
+                  <span class="text-primary font-bold">Accepted</span>
+                </div>
+                <span class="text-on-surface-variant">Runtime: 42ms</span>
+                <span class="text-on-surface-variant">Memory: 28.1MB</span>
+                <button data-nav="submission" class="text-secondary hover:underline">View</button>
+              </div>
+              <div
+                class="bg-surface-container p-3 rounded flex items-center justify-between font-label-sm text-label-sm border border-surface-container-high">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+                  <span class="text-tertiary font-bold">Wrong Answer</span>
+                </div>
+                <span class="text-on-surface-variant">183/210 passed</span>
+                <span class="text-on-surface-variant">12 min ago</span>
+                <button data-nav="submission" class="text-secondary hover:underline">View</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- RIGHT PANE: Code Sandbox (Top) + Test Console (Bottom) (7 Cols) -->
+        <div class="lg:col-span-7 flex flex-col gap-3 h-[calc(100vh-8.5rem)]">
+
+          <!-- Code Editor Sandbox Container -->
+          <section
+            class="flex-1 flex flex-col bg-surface-container-lowest rounded-lg overflow-hidden border border-surface-container shadow-md min-h-[320px]">
+            <!-- Editor Controls Toolbar -->
+            <div
+              class="px-4 py-2.5 bg-surface-container flex items-center justify-between border-b border-surface-container-high">
+              <div class="flex items-center gap-3">
+                <!-- Language Selector -->
+                <div class="relative">
+                  <select id="lang-select"
+                    class="bg-surface-container-low text-on-surface font-label-sm text-label-sm px-3 py-1.5 rounded appearance-none pr-8 cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary border border-surface-container-high">
+                    <option value="python">Python 3</option>
+                    <option value="javascript">JavaScript (Node.js)</option>
+                    <option value="java">Java (OpenJDK 17)</option>
+                    <option value="cpp">C++ (GCC 12)</option>
+                    <option value="go">Go 1.21</option>
+                  </select>
+                  <span
+                    class="material-symbols-outlined text-[16px] text-on-surface-variant pointer-events-none absolute right-2 top-2">expand_more</span>
+                </div>
+                <span class="text-outline-variant font-label-sm text-label-sm">|</span>
+                <span class="text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                  <span id="save-status-text">Auto-saved</span>
+                </span>
+                <span class="text-outline-variant font-label-sm text-label-sm">|</span>
+                <!-- Solution Quality / Tests Passing Badge -->
+                <div id="tests-passing-container">
+                  <span id="tests-passing-badge" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-label-sm text-xs font-semibold tracking-wide shadow-xs" title="Test verification status">
+                    <span class="material-symbols-outlined text-[14px]">check_circle</span>
+                    <span id="tests-passing-text">10/10 tests passing</span>
+                  </span>
+                </div>
+              </div>
+              <div class="flex items-center gap-1">
+                <button id="btn-reset-code"
+                  class="p-1.5 rounded hover:bg-surface-bright text-on-surface-variant hover:text-on-surface transition-all"
+                  title="Reset Code Template">
+                  <span class="material-symbols-outlined text-[18px]">restart_alt</span>
+                </button>
+                <button id="btn-editor-settings"
+                  class="p-1.5 rounded hover:bg-surface-bright text-on-surface-variant hover:text-on-surface transition-all"
+                  title="Editor Preferences">
+                  <span class="material-symbols-outlined text-[18px]">settings</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Interactive Code Workspace with Line Numbers -->
+            <div class="flex-1 flex overflow-hidden bg-[#060e20] font-code-md text-code-md relative">
+              <!-- Line Numbers Rail -->
+              <div id="code-line-numbers"
+                class="w-10 py-3 bg-surface-container-lowest text-right pr-2.5 select-none text-outline-variant font-code-md text-code-md space-y-1 font-mono text-[13px] border-r border-surface-container-high/40">
+                <div>1</div>
+                <div>2</div>
+                <div>3</div>
+                <div>4</div>
+                <div>5</div>
+                <div>6</div>
+                <div>7</div>
+                <div>8</div>
+                <div>9</div>
+                <div>10</div>
+                <div>11</div>
+                <div>12</div>
+              </div>
+
+              <!-- Editable Code Area -->
+              <textarea id="code-editor" spellcheck="false"
+                class="code-editor-area flex-1 py-3 px-4 bg-transparent text-on-surface font-code-md text-[13.5px] leading-[22px] outline-none resize-none overflow-auto text-on-surface selection:bg-primary-container selection:text-on-primary-container font-mono border-none"
+                placeholder="Write your code solution here..."></textarea>
+            </div>
+
+            <!-- Editor Bottom Action Bar -->
+            <div
+              class="px-4 py-2 bg-surface-container flex items-center justify-between border-t border-surface-container-high">
+              <button id="btn-toggle-console"
+                class="flex items-center gap-1.5 text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm transition-colors">
+                <span class="material-symbols-outlined text-[16px]">terminal</span>
+                <span>Console</span>
+                <span class="material-symbols-outlined text-[14px]" id="console-arrow">expand_less</span>
+              </button>
+              <div class="flex items-center gap-3">
+                <button id="btn-run-code"
+                  class="px-4 py-1.5 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-sm text-label-sm font-medium flex items-center gap-2 transition-all shadow-sm">
+                  <span class="material-symbols-outlined text-[16px] text-primary">play_arrow</span>
+                  <span>Run Code</span>
+                  <kbd class="px-1.5 py-0.2 bg-surface-container text-on-surface-variant rounded text-[10px]">⌘↵</kbd>
+                </button>
+                <button id="btn-submit-code"
+                  class="px-5 py-1.5 rounded bg-primary-container hover:bg-primary text-on-primary-container font-label-sm text-label-sm font-bold flex items-center gap-1.5 transition-all shadow-lg hover:shadow-primary/20">
+                  <span class="material-symbols-outlined text-[16px]">cloud_upload</span>
+                  <span>Submit</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Tests & Execution Console Pane -->
+          <section id="console-drawer"
+            class="h-64 flex flex-col bg-surface-container-low rounded-lg overflow-hidden border border-surface-container shadow-md transition-all">
+            <!-- Header Tabs -->
+            <div
+              class="px-4 py-2 bg-surface-container flex items-center justify-between border-b border-surface-container-high">
+              <div class="flex items-center gap-2 font-label-sm">
+                <button id="tab-testcase-btn"
+                  class="px-3 py-1 rounded bg-surface-container-high text-on-surface font-medium transition-all">
+                  Test Cases
+                </button>
+                <button id="tab-result-btn"
+                  class="px-3 py-1 rounded text-on-surface-variant hover:text-on-surface flex items-center gap-1.5 transition-all">
+                  <span>Run Results</span>
+                  <span id="run-status-dot" class="w-2 h-2 rounded-full bg-primary hidden"></span>
+                </button>
+              </div>
+              <div class="flex items-center gap-2" id="test-summary-badge">
+                <!-- 10/10 edge cases covered summary chip (Task 3) -->
+                <span id="edge-cases-summary-chip"
+                  class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary/15 text-primary border border-primary/30 font-label-sm text-xs font-semibold tracking-wide">
+                  <span class="material-symbols-outlined text-[14px]">fact_check</span>
+                  <span>10/10 edge cases covered</span>
+                </span>
+                <span class="font-label-sm text-label-sm text-primary font-semibold flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[16px]" id="test-pass-icon">check_circle</span>
+                  <span id="test-pass-counter">10 / 10 Passed</span>
+                </span>
+              </div>
+            </div>
+
+            <!-- Tab Content 1: Test Cases (Scrollable list of all 10 edge cases) -->
+            <div id="panel-test-cases" class="flex-1 p-3 overflow-y-auto flex flex-col gap-2">
+              <div id="test-cases-list" class="space-y-2 font-body-md text-body-md">
+                <!-- Dynamically rendered via renderWorkspaceTestCases() in app.js -->
+              </div>
+            </div>
+
+            <!-- Tab Content 2: Run Results -->
+            <div id="panel-test-results"
+              class="hidden flex-1 p-3 overflow-y-auto flex flex-col gap-2 font-code-md text-code-md">
+              <div class="flex items-center justify-between text-primary font-semibold">
+                <span class="flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[18px]">verified</span>
+                  All Sample Test Cases Passed!
+                </span>
+                <span class="text-on-surface-variant text-label-sm font-mono" id="run-exec-time">Runtime: 1.4ms</span>
+              </div>
+              <div
+                class="bg-surface-container-lowest p-3 rounded font-code-md text-code-md text-on-surface border border-surface-container space-y-1">
+                <div class="text-on-surface-variant text-[12px]">Your output: <span
+                    class="text-primary font-bold">6</span></div>
+                <div class="text-on-surface-variant text-[12px]">Expected output: <span
+                    class="text-on-surface font-bold">6</span></div>
+                <div class="text-on-surface-variant text-[11px] text-outline pt-1">Standard output: [Kadane pass
+                  completed in 9 iterations]</div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+      </div>
+
+      <!-- Conceptual Question Detail View (No code editor, no test cases) -->
+      <div id="workspace-conceptual-view" class="hidden w-full max-w-5xl mx-auto p-4 md:p-6 flex flex-col gap-6">
+        <!-- Question Meta Card -->
+        <div class="bg-surface-container-low rounded-xl border border-surface-container p-5 md:p-6 shadow-sm flex flex-col gap-4">
+          <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-surface-container-high/60">
+            <div class="flex items-center gap-2 flex-wrap" id="conceptual-badges-container">
+              <!-- Reuses existing badge components: Question Type, Difficulty, Company, Category -->
+            </div>
+            <div class="flex items-center gap-2">
+              <button id="btn-copy-model-answer" type="button"
+                class="px-3.5 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-xs font-semibold flex items-center gap-1.5 transition-colors border border-surface-container-high"
+                title="Copy Model Answer to clipboard">
+                <span class="material-symbols-outlined text-[16px] text-primary">content_copy</span>
+                <span id="copy-btn-text">Copy Model Answer</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-xs">
+              <span class="material-symbols-outlined text-[16px] text-secondary">psychology</span>
+              <span class="uppercase tracking-wider font-semibold">Technical Interview Question</span>
+            </div>
+            <h1 id="conceptual-problem-title" class="font-headline-lg text-headline-md md:text-headline-lg font-bold text-on-surface tracking-tight">
+              <!-- Title dynamically rendered -->
+            </h1>
+            <div id="conceptual-problem-source" class="text-[12px] font-body-sm text-on-surface-variant/80 flex items-center gap-1">
+              <span class="material-symbols-outlined text-[13px] text-outline">language</span>
+              <span>via GeeksforGeeks</span>
+            </div>
+          </div>
+
+          <!-- Problem Description / Context -->
+          <div id="conceptual-problem-desc" class="font-body-md text-body-md text-on-surface-variant leading-relaxed space-y-3 bg-surface-container/40 p-4 rounded-lg border border-surface-container-high/40">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- Model Answer Card -->
+        <div class="bg-surface-container-low rounded-xl border border-surface-container overflow-hidden shadow-sm flex flex-col">
+          <div class="px-5 py-4 bg-surface-container flex items-center justify-between border-b border-surface-container-high">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary text-[22px]">verified</span>
+              <h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Model Answer &amp; Comprehensive Solution</h2>
+            </div>
+            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/25 font-label-sm text-xs font-semibold">
+              <span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+              Interview Rubric
+            </span>
+          </div>
+
+          <div id="conceptual-model-answer" class="p-5 md:p-6 prose prose-invert max-w-none font-body-md text-body-md text-on-surface space-y-4 overflow-x-auto leading-relaxed">
+            <!-- Dynamically populated markdown / HTML -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- VIEW 3: SUBMISSION RESULTS (Stitch Screen a3d57fba0cdd4abaa002239a7c35e69a) -->
+    <!-- ======================================================================= -->
+    <section id="view-submission" class="page-view w-full">
+      <div class="w-full max-w-container-max mx-auto px-gutter py-lg flex flex-col gap-lg">
+
+        <!-- Top Breadcrumb & Status Navigation Meta -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-sm">
+          <div class="flex items-center gap-xs text-on-surface-variant font-label-sm text-label-sm">
+            <button data-nav="solve" class="hover:text-primary transition-colors flex items-center gap-1">
+              <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+              <span>Problem 53</span>
+            </button>
+            <span class="text-outline-variant">/</span>
+            <span class="text-on-surface">Maximum Subarray</span>
+            <span class="text-outline-variant">/</span>
+            <span class="text-secondary font-code-md text-code-md">Submissions #8920412</span>
+          </div>
+
+          <!-- State Switcher Demo Pills -->
+          <div
+            class="flex items-center p-1 bg-surface-container-low rounded-xl self-start md:self-auto shadow-sm border border-surface-container">
+            <span
+              class="px-2.5 py-1 text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider select-none text-[10px]">Preview
+              Verdict:</span>
+            <button data-verdict="accepted"
+              class="state-pill px-3 py-1 rounded-lg font-label-sm text-label-sm bg-primary text-on-primary font-medium transition-all shadow-sm flex items-center gap-1"
+              id="btn-state-accepted">
+              <span class="material-symbols-outlined text-[14px]">check_circle</span>
+              Accepted
+            </button>
+            <button data-verdict="wrong"
+              class="state-pill px-3 py-1 rounded-lg font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-1"
+              id="btn-state-wrong">
+              <span class="material-symbols-outlined text-[14px]">cancel</span>
+              Wrong Answer
+            </button>
+            <button data-verdict="runtime"
+              class="state-pill px-3 py-1 rounded-lg font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-1"
+              id="btn-state-runtime">
+              <span class="material-symbols-outlined text-[14px]">error</span>
+              Runtime Error
+            </button>
+          </div>
+        </div>
+
+        <!-- MAIN EVALUATION BANNER -->
+        <div id="verdict-banner"
+          class="relative overflow-hidden rounded-xl bg-surface-container p-md md:p-lg transition-all duration-300 shadow-xl border border-surface-container-high">
+          <!-- Glow ambient backdrop circle -->
+          <div id="verdict-glow"
+            class="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-primary/10 blur-3xl pointer-events-none transition-all">
+          </div>
+
+          <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-md">
+            <div class="flex items-start md:items-center gap-md">
+              <div id="verdict-icon-container"
+                class="w-14 h-14 rounded-xl bg-primary/15 text-primary flex items-center justify-center shrink-0 shadow-inner">
+                <span id="verdict-icon" class="material-symbols-outlined text-[36px]"
+                  style="font-variation-settings: 'FILL' 1;">check_circle</span>
+              </div>
+              <div class="flex flex-col">
+                <div class="flex items-center gap-sm flex-wrap">
+                  <h1 id="verdict-title" class="font-headline-lg text-headline-lg text-primary tracking-tight">Accepted
+                  </h1>
+                  <span id="verdict-tag"
+                    class="px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-primary/20 text-primary">All tests
+                    passed</span>
+                </div>
+                <div class="flex items-center gap-md text-on-surface-variant font-label-sm text-label-sm mt-1">
+                  <span class="flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[14px]">schedule</span>
+                    Submitted <span id="verdict-time" class="text-on-surface font-code-md text-code-md">Just now</span>
+                  </span>
+                  <span class="text-outline-variant">•</span>
+                  <span class="flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[14px]">code</span>
+                    <span class="text-on-surface font-code-md text-code-md">Python 3 (3.11.4)</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Primary Action -->
+            <div class="flex items-center gap-sm shrink-0">
+              <button data-nav="solve"
+                class="px-5 py-2.5 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-semibold hover:bg-primary-fixed transition-all flex items-center gap-2 shadow-md">
+                <span class="material-symbols-outlined text-[18px]">replay</span>
+                <span>Try Again</span>
+              </button>
+              <button data-nav="problems"
+                class="px-4 py-2.5 rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-sm text-label-sm transition-all flex items-center gap-1.5 shadow-sm">
+                <span class="material-symbols-outlined text-[18px]">menu_book</span>
+                <span>Problem Catalog</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- METRICS & TELEMETRY SECTION (Visible for Accepted / Wrong states) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-md" id="stats-grid">
+          <!-- Runtime Metric Card -->
+          <div
+            class="p-md rounded-xl bg-surface-container-low flex flex-col justify-between gap-sm relative overflow-hidden shadow-sm border border-surface-container">
+            <div class="flex items-center justify-between">
+              <span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-[16px] text-secondary">speed</span>
+                Execution Runtime
+              </span>
+              <span class="px-2 py-0.5 rounded font-label-sm text-label-sm bg-primary/10 text-primary"
+                id="runtime-beats-badge">Beats 88.4%</span>
+            </div>
+            <div class="flex items-baseline gap-xs my-1">
+              <span class="font-code-md text-[36px] font-bold text-on-surface tracking-tight"
+                id="stat-runtime-val">42</span>
+              <span class="font-code-md text-code-md text-on-surface-variant">ms</span>
+            </div>
+            <!-- Micro distribution histogram -->
+            <div class="w-full flex flex-col gap-1">
+              <div class="h-10 w-full flex items-end gap-1 px-1">
+                <div class="w-1/12 h-[20%] bg-surface-container-highest rounded-t"></div>
+                <div class="w-1/12 h-[35%] bg-surface-container-highest rounded-t"></div>
+                <div class="w-1/12 h-[55%] bg-surface-container-highest rounded-t"></div>
+                <div class="w-1/12 h-[80%] bg-primary/70 rounded-t relative">
+                  <span
+                    class="absolute -top-3 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-primary ring-2 ring-background"></span>
+                </div>
+                <div class="w-1/12 h-[100%] bg-surface-container-highest rounded-t"></div>
+                <div class="w-1/12 h-[65%] bg-surface-container-highest rounded-t"></div>
+                <div class="w-1/12 h-[45%] bg-surface-container-highest rounded-t"></div>
+                <div class="w-1/12 h-[25%] bg-surface-container-highest rounded-t"></div>
+                <div class="w-1/12 h-[18%] bg-surface-container-highest rounded-t"></div>
+                <div class="w-1/12 h-[12%] bg-surface-container-highest rounded-t"></div>
+                <div class="w-1/12 h-[8%] bg-surface-container-highest rounded-t"></div>
+                <div class="w-1/12 h-[4%] bg-surface-container-highest rounded-t"></div>
+              </div>
+              <div class="flex justify-between font-label-sm text-[10px] text-on-surface-variant">
+                <span>30ms</span>
+                <span class="text-primary font-semibold">Your time (42ms)</span>
+                <span>120ms</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Memory Metric Card -->
+          <div
+            class="p-md rounded-xl bg-surface-container-low flex flex-col justify-between gap-sm relative overflow-hidden shadow-sm border border-surface-container">
+            <div class="flex items-center justify-between">
+              <span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-[16px] text-secondary">memory</span>
+                Memory Usage
+              </span>
+              <span class="px-2 py-0.5 rounded font-label-sm text-label-sm bg-primary/10 text-primary"
+                id="memory-beats-badge">Beats 74.2%</span>
+            </div>
+            <div class="flex items-baseline gap-xs my-1">
+              <span class="font-code-md text-[36px] font-bold text-on-surface tracking-tight"
+                id="stat-memory-val">28.1</span>
+              <span class="font-code-md text-code-md text-on-surface-variant">MB</span>
+            </div>
+            <!-- Micro distribution histogram -->
+            <div class="w-full flex flex-col gap-1">
+              <div class="h-10 w-full flex items-end gap-1 px-1">
+                <div class="w-1/12 h-[15%] bg-surface-container-highest rounded-t"></div>
+                <div class="w-1/12 h-[30%] bg-surface-container-highest rounded-t"></div>
+                <div class="w-1/12 h-[60%] bg-surface-container-highest rounded-t"></div>
+                <div class="w-1/12 h-[95%] bg-surface-container-highest rounded-t"></div>
+                <div class="w-1/12 h-[75%] bg-primary/70 rounded-t relative">
+                  <span
+                    class="absolute -top-3 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-primary ring-2 ring-background"></span>
+                </div>
+                <div class="w-1/12 h-[50%] bg-surface-container-highest rounded-t"></div>
+                <div class="w-1/12 h-[40%] bg-surface-container-highest rounded-t"></div>
+                <div class="w-1/12 h-[22%] bg-surface-container-highest rounded-t"></div>
+                <div class="w-1/12 h-[15%] bg-surface-container-highest rounded-t"></div>
+                <div class="w-1/12 h-[9%] bg-surface-container-highest rounded-t"></div>
+                <div class="w-1/12 h-[5%] bg-surface-container-highest rounded-t"></div>
+                <div class="w-1/12 h-[2%] bg-surface-container-highest rounded-t"></div>
+              </div>
+              <div class="flex justify-between font-label-sm text-[10px] text-on-surface-variant">
+                <span>26.0 MB</span>
+                <span class="text-primary font-semibold">Your footprint (28.1 MB)</span>
+                <span>34.5 MB</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Test Cases Suite Card -->
+          <div
+            class="p-md rounded-xl bg-surface-container-low flex flex-col justify-between gap-sm relative overflow-hidden shadow-sm border border-surface-container">
+            <div class="flex items-center justify-between">
+              <span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-[16px] text-secondary">flaky</span>
+                Test Suite Coverage
+              </span>
+              <span class="px-2 py-0.5 rounded font-label-sm text-label-sm bg-primary/10 text-primary"
+                id="suite-status-badge">100% Passed</span>
+            </div>
+            <div class="flex items-baseline gap-xs my-1">
+              <span class="font-code-md text-[36px] font-bold text-on-surface tracking-tight"
+                id="stat-cases-val">210</span>
+              <span class="font-code-md text-code-md text-on-surface-variant" id="stat-cases-total">/ 210 passed</span>
+            </div>
+            <div class="w-full flex flex-col gap-1.5">
+              <div class="w-full h-2 rounded-full bg-surface-container-highest overflow-hidden flex">
+                <div class="h-full bg-primary transition-all duration-500" id="stat-bar-pass" style="width: 100%;">
+                </div>
+                <div class="h-full bg-tertiary-container transition-all duration-500" id="stat-bar-fail"
+                  style="width: 0%;"></div>
+              </div>
+              <div class="flex justify-between font-label-sm text-[10px] text-on-surface-variant">
+                <span id="suite-sub-left">All edge cases satisfied</span>
+                <span class="text-on-surface">Time limit: 2000ms</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAILURE / DIAGNOSTICS SECTION (Shown for Wrong Answer & Runtime Error) -->
+        <div class="hidden flex flex-col gap-md" id="failure-section">
+          <div
+            class="p-md rounded-xl bg-surface-container-low flex flex-col gap-md shadow-md border border-surface-container">
+            <div class="flex items-center justify-between border-b border-surface-container pb-sm">
+              <div class="flex items-center gap-xs">
+                <span class="material-symbols-outlined text-tertiary text-[20px]">troubleshoot</span>
+                <span class="font-headline-md text-headline-md text-on-surface">Evaluation Diagnostic</span>
+              </div>
+              <span class="px-2.5 py-1 rounded bg-surface-container-highest text-tertiary font-label-sm text-label-sm"
+                id="diagnostic-case-pill">
+                Failed Test Case 184 of 210
+              </span>
+            </div>
+
+            <!-- Wrong Answer Detail Layout -->
+            <div class="flex flex-col gap-md" id="diagnostic-wrong-content">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-sm font-label-sm">
+                <!-- Test Input -->
+                <div
+                  class="flex flex-col gap-xs p-sm rounded-lg bg-surface-container border border-surface-container-high">
+                  <span class="text-on-surface-variant text-[11px] uppercase tracking-wider">Input Parameter</span>
+                  <pre
+                    class="font-code-md text-code-md text-on-surface whitespace-pre-wrap select-all font-mono">nums = [-1, -2]</pre>
+                </div>
+                <!-- Expected -->
+                <div
+                  class="flex flex-col gap-xs p-sm rounded-lg bg-primary-container/10 border border-primary-container/30">
+                  <span class="text-primary text-[11px] uppercase tracking-wider font-semibold">Expected Output</span>
+                  <pre class="font-code-md text-code-md text-primary font-bold select-all font-mono">-1</pre>
+                </div>
+                <!-- Actual -->
+                <div
+                  class="flex flex-col gap-xs p-sm rounded-lg bg-tertiary-container/15 border border-tertiary-container/30">
+                  <span class="text-tertiary text-[11px] uppercase tracking-wider font-semibold">Actual Result</span>
+                  <pre class="font-code-md text-code-md text-tertiary font-bold select-all font-mono">0</pre>
+                </div>
+              </div>
+
+              <!-- Semantic Diff Inspector -->
+              <div class="flex flex-col gap-xs">
+                <span class="font-label-sm text-label-sm text-on-surface-variant">Output Value Diff:</span>
+                <div
+                  class="p-sm rounded-lg bg-surface-container-lowest font-code-md text-code-md flex flex-col gap-1 border border-surface-container">
+                  <div class="flex items-center gap-2 text-tertiary">
+                    <span class="select-none font-bold text-tertiary">- 0</span>
+                    <span class="text-on-surface-variant text-[12px] font-body-md">// Produced by initial max_sum = 0
+                      instead of float('-inf')</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-primary">
+                    <span class="select-none font-bold text-primary">+ -1</span>
+                    <span class="text-on-surface-variant text-[12px] font-body-md">// Expected max element when all
+                      values are negative</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Runtime Error Detail Layout -->
+            <div class="hidden flex flex-col gap-sm" id="diagnostic-runtime-content">
+              <div class="flex items-center gap-2 text-error">
+                <span class="material-symbols-outlined text-[18px]">bug_report</span>
+                <span class="font-headline-md text-headline-md text-error">IndexError: list index out of range</span>
+              </div>
+              <div
+                class="p-sm rounded-lg bg-surface-container-lowest font-code-md text-code-md text-on-surface-variant leading-relaxed border border-surface-container">
+                <div class="text-outline-variant">Traceback (most recent call last):</div>
+                <div class="pl-3">File <span class="text-secondary">"solution.py"</span>, line 8, in <span
+                    class="text-primary">maxSubArray</span></div>
+                <div class="pl-6 text-error">curr_max = nums[i] + nums[i+1]</div>
+                <div class="text-error font-semibold mt-1">IndexError: list index out of range (i=1, len=2)</div>
+              </div>
+            </div>
+
+            <!-- AI Guidance / Failure Hint -->
+            <div
+              class="flex items-start gap-sm p-sm rounded-lg bg-surface-container-high border border-surface-container">
+              <span class="material-symbols-outlined text-secondary shrink-0 mt-0.5 text-[20px]">lightbulb</span>
+              <div class="flex flex-col gap-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-label-sm text-label-sm font-semibold text-secondary">Evaluation Mentor
+                    Guidance</span>
+                  <button id="hint-toggle-btn" class="font-label-sm text-label-sm text-primary hover:underline">
+                    Reveal Hint
+                  </button>
+                </div>
+                <p id="hint-text"
+                  class="text-on-surface-variant font-body-md text-body-md filter blur-sm select-none transition-all duration-300">
+                  Consider what happens when the entire input list contains strictly negative values. Initializing your
+                  accumulator to <code class="font-code-md text-secondary">0</code> can falsely overshadow legitimate
+                  negative maximums. Try initializing with <code class="font-code-md text-secondary">nums[0]</code> or
+                  negative infinity.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CODE SNAPSHOT AND SUBMISSION ACTIONS GRID -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-md">
+          <!-- Code Snapshot (8 cols on desktop) -->
+          <div
+            class="lg:col-span-8 flex flex-col rounded-xl bg-surface-container-low overflow-hidden shadow-md border border-surface-container">
+            <!-- Editor Top Chrome -->
+            <div
+              class="px-md py-sm bg-surface-container flex items-center justify-between border-b border-surface-container-high">
+              <div class="flex items-center gap-sm">
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-error/60"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-tertiary-fixed/60"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-primary/60"></span>
+                </div>
+                <span class="text-outline-variant font-code-md text-[13px] ml-1">solution.py</span>
+              </div>
+              <div class="flex items-center gap-xs">
+                <button id="btn-copy-code"
+                  class="px-2.5 py-1 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm flex items-center gap-1 transition-colors">
+                  <span class="material-symbols-outlined text-[14px]">content_copy</span>
+                  <span id="copy-btn-text">Copy Code</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Syntax Highlighted Code Viewer -->
+            <div
+              class="p-md bg-surface-container-lowest overflow-x-auto font-code-md text-code-md leading-6 select-text text-on-surface flex">
+              <div
+                class="select-none text-outline-variant pr-md text-right shrink-0 border-r border-surface-container-high/40 font-mono">
+                <div>1</div>
+                <div>2</div>
+                <div>3</div>
+                <div>4</div>
+                <div>5</div>
+                <div>6</div>
+                <div>7</div>
+                <div>8</div>
+                <div>9</div>
+                <div>10</div>
+                <div>11</div>
+                <div>12</div>
+              </div>
+              <pre class="flex-1 font-code-md overflow-x-auto text-on-surface pl-4 font-mono"><code><span class="text-secondary">class</span> <span class="text-primary-fixed font-semibold">Solution</span>:
+    <span class="text-secondary">def</span> <span class="text-primary font-medium">maxSubArray</span>(<span class="text-on-surface-variant">self</span>, nums: <span class="text-secondary">list</span>[<span class="text-secondary">int</span>]) -&gt; <span class="text-secondary">int</span>:
+        <span class="text-outline-variant italic"># Kadane's Algorithm implementation</span>
+        <span id="code-line-init" class="transition-colors"><span class="text-on-surface">max_so_far</span> = nums[<span class="text-tertiary-fixed-dim">0</span>]</span>
+        <span class="text-on-surface">curr_max</span> = nums[<span class="text-tertiary-fixed-dim">0</span>]
+        
+        <span class="text-secondary">for</span> <span class="text-on-surface">x</span> <span class="text-secondary">in</span> nums[<span class="text-tertiary-fixed-dim">1</span>:]:
+            <span class="text-on-surface">curr_max</span> = <span class="text-secondary">max</span>(<span class="text-on-surface">x</span>, <span class="text-on-surface">curr_max</span> + <span class="text-on-surface">x</span>)
+            <span class="text-on-surface">max_so_far</span> = <span class="text-secondary">max</span>(<span class="text-on-surface">max_so_far</span>, <span class="text-on-surface">curr_max</span>)
+            
+        <span class="text-secondary">return</span> <span class="text-on-surface">max_so_far</span></code></pre>
+            </div>
+          </div>
+
+          <!-- Right Column: Context, Community Solutions, & Next Problem (4 cols) -->
+          <div class="lg:col-span-4 flex flex-col gap-md justify-between">
+            <!-- Next Problem Card -->
+            <div
+              class="p-md rounded-xl bg-surface-container-low flex flex-col gap-sm shadow-sm border border-surface-container">
+              <div class="flex items-center justify-between">
+                <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Up
+                  Next</span>
+                <span
+                  class="px-2 py-0.5 rounded font-label-sm text-label-sm bg-secondary-container/20 text-secondary">Medium</span>
+              </div>
+              <div class="flex flex-col gap-1">
+                <button data-solve-id="56"
+                  class="text-left font-headline-md text-headline-md text-on-surface hover:text-primary transition-colors flex items-center justify-between group">
+                  <span>56. Merge Intervals</span>
+                  <span
+                    class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                </button>
+                <p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">
+                  Given an array of intervals where intervals[i] = [start_i, end_i], merge all overlapping intervals
+                  into non-overlapping segments.
+                </p>
+              </div>
+              <div class="flex items-center gap-xs pt-1 text-on-surface-variant font-label-sm text-label-sm">
+                <span class="material-symbols-outlined text-[14px]">category</span>
+                <span>Array, Sorting</span>
+              </div>
+            </div>
+
+            <!-- Submission History Mini-Log -->
+            <div
+              class="p-md rounded-xl bg-surface-container-low flex flex-col gap-sm shadow-sm flex-1 border border-surface-container">
+              <div class="flex items-center justify-between">
+                <span class="font-headline-md text-headline-md text-on-surface text-[18px]">Recent Attempts</span>
+                <span class="font-label-sm text-label-sm text-primary">All (3)</span>
+              </div>
+              <div class="flex flex-col gap-xs mt-1">
+                <div
+                  class="flex items-center justify-between p-2 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-primary"></span>
+                    <span class="text-primary font-medium">Accepted</span>
+                  </div>
+                  <span class="font-code-md text-on-surface-variant">42 ms</span>
+                  <span class="text-on-surface-variant">Just now</span>
+                </div>
+                <div
+                  class="flex items-center justify-between p-2 rounded-lg bg-surface-container-lowest text-on-surface font-label-sm text-label-sm">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+                    <span class="text-tertiary font-medium">Wrong Answer</span>
+                  </div>
+                  <span class="font-code-md text-on-surface-variant">--</span>
+                  <span class="text-on-surface-variant">12 min ago</span>
+                </div>
+                <div
+                  class="flex items-center justify-between p-2 rounded-lg bg-surface-container-lowest text-on-surface font-label-sm text-label-sm">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-error"></span>
+                    <span class="text-error font-medium">Runtime Error</span>
+                  </div>
+                  <span class="font-code-md text-on-surface-variant">--</span>
+                  <span class="text-on-surface-variant">25 min ago</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Help actions -->
+            <div
+              class="p-md rounded-xl bg-surface-container-high flex items-center justify-between border border-surface-container">
+              <div class="flex items-center gap-sm">
+                <span class="material-symbols-outlined text-secondary text-[24px]">forum</span>
+                <div class="flex flex-col">
+                  <span class="font-label-sm text-label-sm font-semibold text-on-surface">Community Solutions</span>
+                  <span class="font-label-sm text-[11px] text-on-surface-variant">3,891 user discussions</span>
+                </div>
+              </div>
+              <button
+                class="px-3 py-1.5 rounded bg-surface-container hover:bg-surface-bright text-on-surface font-label-sm text-label-sm transition-colors">
+                Browse
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- VIEW 4: PROGRESS DASHBOARD (Stitch Screen 18518663dfbb4c8eabe29c9a9fa284ab)-->
+    <!-- ======================================================================= -->
+    <section id="view-dashboard" class="page-view w-full">
+      <div class="relative w-full overflow-hidden">
+        <div class="absolute -top-32 right-1/4 w-96 h-96 rounded-full bg-primary/5 blur-3xl pointer-events-none"></div>
+        <div
+          class="absolute top-48 -left-20 w-80 h-80 rounded-full bg-secondary-container/10 blur-3xl pointer-events-none">
+        </div>
+
+        <div class="max-w-container-max mx-auto px-gutter py-md md:py-lg flex flex-col gap-lg relative z-10">
+
+          <!-- User Hero / Profile Header -->
+          <section class="bg-surface-container-low rounded-xl p-md shadow-sm border border-surface-container">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-md">
+              <div class="flex items-center gap-md">
+                <div class="relative">
+                  <div
+                    class="w-16 h-16 md:w-20 md:h-20 rounded-xl bg-surface-container-highest border border-surface-container-high flex items-center justify-center text-primary font-bold text-2xl shadow-md">
+                    AM
+                  </div>
+                  <div
+                    class="absolute -bottom-1 -right-1 bg-primary text-on-primary rounded-full p-0.5 shadow-sm flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[16px]">verified</span>
+                  </div>
+                </div>
+                <div class="flex flex-col">
+                  <div class="flex items-center gap-xs flex-wrap">
+                    <h1 class="font-headline-md text-headline-md text-on-surface font-semibold">Alex Mercer</h1>
+                    <span id="dashboard-user-role-badge"
+                      class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-primary/20 text-primary font-mono tracking-wide uppercase">ROLE: ADMIN</span>
+                    <button id="btn-dashboard-toggle-role" type="button"
+                      class="font-label-sm text-[11px] px-2.5 py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface border border-surface-container-high transition-colors font-mono"
+                      title="Toggle role between admin and user">Switch to User</button>
+                    <span
+                      class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container-high text-primary tracking-wide">L4
+                      PREP</span>
+                    <span class="font-label-sm text-label-sm text-on-surface-variant font-mono">// US-WEST</span>
+                  </div>
+                  <p class="font-body-md text-body-md text-on-surface-variant mt-0.5">Software Engineer Candidate •
+                    Distributed Systems &amp; Algorithms</p>
+                  <div class="flex items-center gap-md mt-2 text-on-surface-variant font-label-sm text-label-sm">
+                    <span class="flex items-center gap-1">
+                      <span class="material-symbols-outlined text-secondary text-[16px]">military_tech</span>
+                      Global Rank: <strong class="text-on-surface">#14,892</strong>
+                    </span>
+                    <span class="flex items-center gap-1">
+                      <span class="material-symbols-outlined text-primary text-[16px]">trending_up</span>
+                      Percentile: <strong class="text-primary">Top 4.2%</strong>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-xs md:self-center">
+                <div
+                  class="bg-surface-container rounded-lg p-sm flex items-center gap-sm border border-surface-container-high">
+                  <div
+                    class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined text-[24px]">workspace_premium</span>
+                  </div>
+                  <div class="flex flex-col">
+                    <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Target
+                      Date</span>
+                    <span class="font-code-md text-code-md text-on-surface font-semibold">Google HC • 28d</span>
+                  </div>
+                </div>
+                <button id="btn-export-card"
+                  class="bg-primary hover:bg-primary-fixed text-on-primary px-4 py-2.5 rounded-lg font-label-sm text-label-sm font-semibold flex items-center gap-xs transition-all shadow-sm">
+                  <span class="material-symbols-outlined text-[18px]">share</span>
+                  <span>Export Card</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- KPI Metric Row -->
+          <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-sm">
+            <!-- Total Solved Metric -->
+            <div
+              class="bg-surface-container-low rounded-xl p-md shadow-sm border border-surface-container flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="font-label-sm text-label-sm uppercase text-on-surface-variant tracking-wider">Solved
+                  Count</span>
+                <span
+                  class="w-7 h-7 rounded bg-primary/10 text-primary flex items-center justify-center material-symbols-outlined text-[18px]">check_circle</span>
+              </div>
+              <div class="my-sm">
+                <div class="flex items-baseline gap-xs">
+                  <span class="font-headline-lg text-headline-lg font-bold text-on-surface">142</span>
+                  <span class="font-body-md text-body-md text-on-surface-variant">/ 1,248</span>
+                </div>
+                <div class="w-full bg-surface-container-highest rounded-full h-1.5 mt-2 overflow-hidden flex">
+                  <div class="bg-primary h-full" style="width: 48%"></div>
+                  <div class="bg-secondary h-full" style="width: 43%"></div>
+                  <div class="bg-tertiary h-full" style="width: 9%"></div>
+                </div>
+              </div>
+              <div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant pt-xs">
+                <span class="text-primary">E: 68</span>
+                <span class="text-secondary">M: 62</span>
+                <span class="text-tertiary">H: 12</span>
+              </div>
+            </div>
+
+            <!-- Current Streak Metric -->
+            <div
+              class="bg-surface-container-low rounded-xl p-md shadow-sm border border-surface-container flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="font-label-sm text-label-sm uppercase text-on-surface-variant tracking-wider">Current
+                  Streak</span>
+                <span
+                  class="w-7 h-7 rounded bg-primary-container/20 text-primary flex items-center justify-center material-symbols-outlined text-[18px]">local_fire_department</span>
+              </div>
+              <div class="my-sm">
+                <div class="flex items-baseline gap-xs">
+                  <span class="font-headline-lg text-headline-lg font-bold text-primary">18</span>
+                  <span class="font-body-md text-body-md text-on-surface">Days</span>
+                </div>
+                <div class="flex items-center gap-1 mt-2">
+                  <span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+                  <span class="font-label-sm text-label-sm text-on-surface-variant">Active today • 2 solved</span>
+                </div>
+              </div>
+              <div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant pt-xs">
+                <span>Longest: <strong class="text-on-surface">24 Days</strong></span>
+                <span class="text-primary font-medium">Top 8%</span>
+              </div>
+            </div>
+
+            <!-- Acceptance Rate Metric -->
+            <div
+              class="bg-surface-container-low rounded-xl p-md shadow-sm border border-surface-container flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="font-label-sm text-label-sm uppercase text-on-surface-variant tracking-wider">Acceptance
+                  Rate</span>
+                <span
+                  class="w-7 h-7 rounded bg-secondary-container/20 text-secondary flex items-center justify-center material-symbols-outlined text-[18px]">data_thresholding</span>
+              </div>
+              <div class="my-sm">
+                <div class="flex items-baseline gap-xs">
+                  <span class="font-headline-lg text-headline-lg font-bold text-secondary">71.4%</span>
+                </div>
+                <p class="font-label-sm text-label-sm text-on-surface-variant mt-2 font-mono">198 accepted / 277 total
+                </p>
+              </div>
+              <div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant pt-xs">
+                <span>Run Efficiency</span>
+                <span class="text-secondary font-medium">94ms avg</span>
+              </div>
+            </div>
+
+            <!-- Practice Time Metric -->
+            <div
+              class="bg-surface-container-low rounded-xl p-md shadow-sm border border-surface-container flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="font-label-sm text-label-sm uppercase text-on-surface-variant tracking-wider">Practice
+                  Time</span>
+                <span
+                  class="w-7 h-7 rounded bg-surface-container-high text-on-surface flex items-center justify-center material-symbols-outlined text-[18px]">timer</span>
+              </div>
+              <div class="my-sm">
+                <div class="flex items-baseline gap-xs">
+                  <span class="font-headline-lg text-headline-lg font-bold text-on-surface">48.5</span>
+                  <span class="font-body-md text-body-md text-on-surface-variant">Hours</span>
+                </div>
+                <p class="font-label-sm text-label-sm text-on-surface-variant mt-2 font-mono">+6.2 hrs this week</p>
+              </div>
+              <div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant pt-xs">
+                <span>Avg / Problem</span>
+                <span class="text-on-surface font-medium">20.5 min</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Main Analytical Bento Grid: Heatmap + Distribution -->
+          <section class="grid grid-cols-1 lg:grid-cols-12 gap-sm">
+
+            <!-- Practice Activity Heatmap (8 Cols) -->
+            <div
+              class="lg:col-span-8 bg-surface-container-low rounded-xl p-md shadow-sm border border-surface-container flex flex-col justify-between">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-xs mb-sm">
+                <div>
+                  <div class="flex items-center gap-xs">
+                    <span class="material-symbols-outlined text-primary text-[18px]">calendar_month</span>
+                    <h2 class="font-headline-md text-headline-md text-on-surface font-semibold">Weekly Consistency</h2>
+                  </div>
+                  <p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">384 submissions in the last 6
+                    months</p>
+                </div>
+                <div class="flex items-center gap-xs font-label-sm text-label-sm text-on-surface-variant">
+                  <span>Less</span>
+                  <span class="w-2.5 h-2.5 rounded bg-surface-container-highest"></span>
+                  <span class="w-2.5 h-2.5 rounded bg-primary-container/30"></span>
+                  <span class="w-2.5 h-2.5 rounded bg-primary/60"></span>
+                  <span class="w-2.5 h-2.5 rounded bg-primary"></span>
+                  <span>More</span>
+                </div>
+              </div>
+
+              <!-- Heatmap Representation -->
+              <div class="overflow-x-auto py-xs">
+                <div class="min-w-[620px] flex flex-col gap-1.5">
+                  <div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant px-1 font-mono">
+                    <span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span>
+                  </div>
+                  <div id="heatmap-container" class="grid grid-flow-col grid-rows-7 gap-1 w-full">
+                    <!-- Populated via app.js -->
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="pt-sm flex flex-wrap items-center justify-between gap-xs font-label-sm text-label-sm text-on-surface-variant border-t border-surface-container/60 mt-2">
+                <span class="font-mono">Longest continuous session: <strong class="text-on-surface">3h 40m (Apr
+                    12)</strong></span>
+                <span class="text-primary font-medium flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                  Commit sync active with GitHub
+                </span>
+              </div>
+            </div>
+
+            <!-- Difficulty Radial / Donut Gauge (4 Cols) -->
+            <div
+              class="lg:col-span-4 bg-surface-container-low rounded-xl p-md shadow-sm border border-surface-container flex flex-col justify-between">
+              <div class="flex items-center justify-between mb-xs">
+                <div class="flex items-center gap-xs">
+                  <span class="material-symbols-outlined text-secondary text-[18px]">pie_chart</span>
+                  <h2 class="font-headline-md text-headline-md text-on-surface font-semibold">Difficulty Tier</h2>
+                </div>
+                <span
+                  class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-mono">142
+                  Solved</span>
+              </div>
+
+              <!-- Interactive Radial Donut SVG -->
+              <div class="relative flex items-center justify-center my-sm">
+                <svg class="w-40 h-40 transform -rotate-90" viewBox="0 0 120 120">
+                  <circle class="text-surface-container-highest" cx="60" cy="60" fill="transparent" r="48"
+                    stroke="currentColor" stroke-width="10"></circle>
+                  <!-- Easy (Emerald) -->
+                  <circle class="text-primary" cx="60" cy="60" fill="transparent" r="48" stroke="currentColor"
+                    stroke-dasharray="301.59" stroke-dashoffset="156.8" stroke-linecap="round" stroke-width="10">
+                  </circle>
+                  <!-- Medium (Electric Blue) -->
+                  <circle class="text-secondary" cx="60" cy="60" fill="transparent" r="48" stroke="currentColor"
+                    stroke-dasharray="301.59" stroke-dashoffset="210.1" stroke-linecap="round" stroke-width="10"
+                    transform="rotate(172 60 60)"></circle>
+                  <!-- Hard (Rose) -->
+                  <circle class="text-tertiary" cx="60" cy="60" fill="transparent" r="48" stroke="currentColor"
+                    stroke-dasharray="301.59" stroke-dashoffset="274.4" stroke-linecap="round" stroke-width="10"
+                    transform="rotate(328 60 60)"></circle>
+                </svg>
+                <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                  <span class="font-headline-lg text-headline-lg text-on-surface leading-none font-bold">11.3%</span>
+                  <span class="font-label-sm text-label-sm text-on-surface-variant uppercase mt-1">Completion</span>
+                </div>
+              </div>
+
+              <!-- Difficulty Breakdown Stats -->
+              <div class="space-y-2 font-label-sm text-label-sm">
+                <div
+                  class="flex items-center justify-between p-2 rounded bg-surface-container border border-surface-container-high/60">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+                    <span class="text-on-surface font-medium">Easy</span>
+                  </div>
+                  <div class="flex items-center gap-xs font-mono">
+                    <span class="text-on-surface">68</span>
+                    <span class="text-on-surface-variant">/ 400</span>
+                    <span class="text-primary font-semibold ml-1">17.0%</span>
+                  </div>
+                </div>
+
+                <div
+                  class="flex items-center justify-between p-2 rounded bg-surface-container border border-surface-container-high/60">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+                    <span class="text-on-surface font-medium">Medium</span>
+                  </div>
+                  <div class="flex items-center gap-xs font-mono">
+                    <span class="text-on-surface">62</span>
+                    <span class="text-on-surface-variant">/ 620</span>
+                    <span class="text-secondary font-semibold ml-1">10.0%</span>
+                  </div>
+                </div>
+
+                <div
+                  class="flex items-center justify-between p-2 rounded bg-surface-container border border-surface-container-high/60">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-tertiary"></span>
+                    <span class="text-on-surface font-medium">Hard</span>
+                  </div>
+                  <div class="flex items-center gap-xs font-mono">
+                    <span class="text-on-surface">12</span>
+                    <span class="text-on-surface-variant">/ 228</span>
+                    <span class="text-tertiary font-semibold ml-1">5.2%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Topic Mastery & Recommendation Row -->
+          <section class="grid grid-cols-1 lg:grid-cols-12 gap-sm">
+            <!-- Left 7 Cols: Topic Mastery Breakdown -->
+            <div
+              class="lg:col-span-7 bg-surface-container-low rounded-xl p-md shadow-sm border border-surface-container">
+              <div class="flex items-center justify-between mb-md">
+                <div>
+                  <h2 class="font-headline-md text-headline-md text-on-surface font-semibold">Domain &amp; Topic
+                    Progress</h2>
+                  <p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Calculated through algorithmic
+                    test accuracy</p>
+                </div>
+                <span class="font-label-sm text-label-sm text-primary flex items-center gap-1 font-mono">
+                  <span class="material-symbols-outlined text-[16px]">code</span>
+                  5 Active Topics
+                </span>
+              </div>
+
+              <div class="flex flex-col gap-md">
+                <!-- Item 1 -->
+                <div class="flex flex-col gap-1">
+                  <div class="flex items-center justify-between text-body-md font-body-md">
+                    <span class="text-on-surface font-medium flex items-center gap-2">
+                      <span class="material-symbols-outlined text-primary text-[18px]">view_column</span>
+                      Arrays &amp; Strings
+                    </span>
+                    <div class="flex items-center gap-2 font-label-sm text-label-sm">
+                      <span class="font-mono text-on-surface-variant">42 / 51 solved</span>
+                      <span class="text-primary font-semibold font-mono w-10 text-right">82%</span>
+                    </div>
+                  </div>
+                  <div class="w-full bg-surface-container-highest rounded-full h-2 overflow-hidden">
+                    <div class="bg-primary h-full rounded-full transition-all duration-500" style="width: 82%"></div>
+                  </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="flex flex-col gap-1">
+                  <div class="flex items-center justify-between text-body-md font-body-md">
+                    <span class="text-on-surface font-medium flex items-center gap-2">
+                      <span class="material-symbols-outlined text-secondary text-[18px]">account_tree</span>
+                      Trees &amp; Graphs
+                    </span>
+                    <div class="flex items-center gap-2 font-label-sm text-label-sm">
+                      <span class="font-mono text-on-surface-variant">36 / 60 solved</span>
+                      <span class="text-secondary font-semibold font-mono w-10 text-right">60%</span>
+                    </div>
+                  </div>
+                  <div class="w-full bg-surface-container-highest rounded-full h-2 overflow-hidden">
+                    <div class="bg-secondary h-full rounded-full transition-all duration-500" style="width: 60%"></div>
+                  </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="flex flex-col gap-1">
+                  <div class="flex items-center justify-between text-body-md font-body-md">
+                    <span class="text-on-surface font-medium flex items-center gap-2">
+                      <span class="material-symbols-outlined text-primary text-[18px]">link</span>
+                      Linked Lists
+                    </span>
+                    <div class="flex items-center gap-2 font-label-sm text-label-sm">
+                      <span class="font-mono text-on-surface-variant">18 / 20 solved</span>
+                      <span class="text-primary font-semibold font-mono w-10 text-right">90%</span>
+                    </div>
+                  </div>
+                  <div class="w-full bg-surface-container-highest rounded-full h-2 overflow-hidden">
+                    <div class="bg-primary h-full rounded-full transition-all duration-500" style="width: 90%"></div>
+                  </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="flex flex-col gap-1">
+                  <div class="flex items-center justify-between text-body-md font-body-md">
+                    <span class="text-on-surface font-medium flex items-center gap-2">
+                      <span class="material-symbols-outlined text-tertiary text-[18px]">dynamic_form</span>
+                      Dynamic Programming
+                    </span>
+                    <div class="flex items-center gap-2 font-label-sm text-label-sm">
+                      <span class="font-mono text-on-surface-variant">28 / 52 solved</span>
+                      <span class="text-tertiary font-semibold font-mono w-10 text-right">54%</span>
+                    </div>
+                  </div>
+                  <div class="w-full bg-surface-container-highest rounded-full h-2 overflow-hidden">
+                    <div class="bg-tertiary h-full rounded-full transition-all duration-500" style="width: 54%"></div>
+                  </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="flex flex-col gap-1">
+                  <div class="flex items-center justify-between text-body-md font-body-md">
+                    <span class="text-on-surface font-medium flex items-center gap-2">
+                      <span class="material-symbols-outlined text-on-surface-variant text-[18px]">database</span>
+                      System Design / SQL
+                    </span>
+                    <div class="flex items-center gap-2 font-label-sm text-label-sm">
+                      <span class="font-mono text-on-surface-variant">18 / 51 solved</span>
+                      <span class="text-on-surface-variant font-semibold font-mono w-10 text-right">35%</span>
+                    </div>
+                  </div>
+                  <div class="w-full bg-surface-container-highest rounded-full h-2 overflow-hidden">
+                    <div class="bg-surface-variant h-full rounded-full transition-all duration-500" style="width: 35%">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right 5 Cols: AI Recommendation & Target Improvement -->
+            <div class="lg:col-span-5 flex flex-col gap-sm">
+              <!-- AI Recommendation Callout -->
+              <div
+                class="bg-surface-container-low rounded-xl p-md shadow-sm border border-surface-container relative overflow-hidden flex flex-col justify-between">
+                <div
+                  class="absolute -right-8 -bottom-8 w-44 h-44 rounded-full bg-primary/10 blur-2xl pointer-events-none">
+                </div>
+                <div>
+                  <div class="flex items-center justify-between mb-xs">
+                    <div class="flex items-center gap-1.5">
+                      <span class="material-symbols-outlined text-primary text-[18px]">auto_awesome</span>
+                      <span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-semibold">AI
+                        Recommendation</span>
+                    </div>
+                    <span
+                      class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-mono">Matches
+                      L4 Prep</span>
+                  </div>
+                  <div class="mt-2">
+                    <span class="font-label-sm text-label-sm text-secondary font-mono uppercase tracking-wider">Continue
+                      Solving</span>
+                    <h3 class="font-headline-md text-headline-md text-on-surface mt-1 font-semibold">56. Merge Intervals
+                    </h3>
+                    <div class="flex items-center gap-xs mt-1.5 flex-wrap">
+                      <span
+                        class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-secondary-container/30 text-secondary font-medium">Medium</span>
+                      <span
+                        class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant">Arrays</span>
+                      <span
+                        class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant">Sorting</span>
+                      <span class="font-label-sm text-label-sm text-on-surface-variant ml-1 font-mono">Acc: 46.8%</span>
+                    </div>
+                  </div>
+                  <p class="font-body-md text-body-md text-on-surface-variant mt-sm">
+                    Frequent interview question at Google &amp; Meta. Master overlapping range logic and in-place
+                    interval coalescing.
+                  </p>
+                </div>
+                <div class="mt-md pt-sm flex items-center gap-xs">
+                  <button data-solve-id="56"
+                    class="bg-primary hover:bg-primary-fixed text-on-primary px-4 py-2.5 rounded-lg font-label-sm text-label-sm flex items-center justify-center gap-xs font-semibold transition-all shadow-sm flex-1">
+                    <span>Solve Now</span>
+                    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                  </button>
+                  <button
+                    class="bg-surface-container hover:bg-surface-container-high text-on-surface p-2.5 rounded-lg transition-colors border border-surface-container-high"
+                    title="Bookmark for later">
+                    <span class="material-symbols-outlined text-[18px]">bookmark_border</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Weakest Sub-Topic Nudge -->
+              <div
+                class="bg-surface-container-low rounded-xl p-md shadow-sm border border-surface-container flex items-center justify-between">
+                <div class="flex items-center gap-sm">
+                  <div
+                    class="w-10 h-10 rounded-lg bg-tertiary-container/30 text-tertiary flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[22px]">psychology</span>
+                  </div>
+                  <div class="flex flex-col">
+                    <span class="font-body-md text-body-md font-semibold text-on-surface">Target Improvement</span>
+                    <span class="font-label-sm text-label-sm text-on-surface-variant font-mono">DP: 2D Grid Problems
+                      (33% acc)</span>
+                  </div>
+                </div>
+                <button data-solve-id="53"
+                  class="text-primary hover:text-primary-fixed font-label-sm text-label-sm flex items-center gap-0.5">
+                  Practice
+                  <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Recent Practice Activity Table -->
+          <section class="bg-surface-container-low rounded-xl p-md shadow-sm border border-surface-container mb-lg">
+            <div class="flex items-center justify-between mb-sm">
+              <div class="flex items-center gap-xs">
+                <span class="material-symbols-outlined text-primary text-[18px]">history</span>
+                <h2 class="font-headline-md text-headline-md text-on-surface font-semibold">Recent Submissions</h2>
+              </div>
+              <span class="font-label-sm text-label-sm text-on-surface-variant font-mono">277 total submissions</span>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left font-body-md text-body-md">
+                <thead>
+                  <tr
+                    class="text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider border-b border-surface-container">
+                    <th class="py-2.5 px-3">Status</th>
+                    <th class="py-2.5 px-3">Problem</th>
+                    <th class="py-2.5 px-3">Difficulty</th>
+                    <th class="py-2.5 px-3">Runtime</th>
+                    <th class="py-2.5 px-3">Memory</th>
+                    <th class="py-2.5 px-3 text-right">Time</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-surface-container/40 font-code-md text-code-md">
+                  <tr class="hover:bg-surface-container/60 transition-colors">
+                    <td class="py-3 px-3">
+                      <span class="inline-flex items-center gap-1.5 text-primary font-medium">
+                        <span class="w-2 h-2 rounded-full bg-primary"></span> Solved
+                      </span>
+                    </td>
+                    <td class="py-3 px-3 font-medium text-on-surface">53. Maximum Subarray</td>
+                    <td class="py-3 px-3 text-secondary font-semibold">Medium</td>
+                    <td class="py-3 px-3 font-mono text-on-surface-variant">42 ms</td>
+                    <td class="py-3 px-3 font-mono text-on-surface-variant">28.1 MB</td>
+                    <td class="py-3 px-3 text-right text-on-surface-variant text-label-sm">Just now</td>
+                  </tr>
+                  <tr class="hover:bg-surface-container/60 transition-colors">
+                    <td class="py-3 px-3">
+                      <span class="inline-flex items-center gap-1.5 text-tertiary font-medium">
+                        <span class="w-2 h-2 rounded-full bg-tertiary"></span> Wrong
+                      </span>
+                    </td>
+                    <td class="py-3 px-3 font-medium text-on-surface">53. Maximum Subarray</td>
+                    <td class="py-3 px-3 text-secondary font-semibold">Medium</td>
+                    <td class="py-3 px-3 font-mono text-on-surface-variant">--</td>
+                    <td class="py-3 px-3 font-mono text-on-surface-variant">--</td>
+                    <td class="py-3 px-3 text-right text-on-surface-variant text-label-sm">12 min ago</td>
+                  </tr>
+                  <tr class="hover:bg-surface-container/60 transition-colors">
+                    <td class="py-3 px-3">
+                      <span class="inline-flex items-center gap-1.5 text-primary font-medium">
+                        <span class="w-2 h-2 rounded-full bg-primary"></span> Solved
+                      </span>
+                    </td>
+                    <td class="py-3 px-3 font-medium text-on-surface">1. Two Sum</td>
+                    <td class="py-3 px-3 text-primary font-semibold">Easy</td>
+                    <td class="py-3 px-3 font-mono text-on-surface-variant">38 ms</td>
+                    <td class="py-3 px-3 font-mono text-on-surface-variant">17.4 MB</td>
+                    <td class="py-3 px-3 text-right text-on-surface-variant text-label-sm">Yesterday</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: AUTOMATIC SCRAPER & SYNC STATUS PANEL                              -->
+  <!-- ========================================================================= -->
+  <div id="modal-sync-status"
+    class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center p-4 bg-background/80 backdrop-blur-md"
+    role="dialog" aria-modal="true" aria-labelledby="sync-panel-title">
+    <div
+      class="modal-content w-full max-w-2xl bg-surface-container-low border border-surface-container-high rounded-2xl p-6 shadow-2xl flex flex-col gap-5 max-h-[90vh] overflow-y-auto">
+      
+      <!-- Panel Header -->
+      <div class="flex items-start justify-between border-b border-surface-container pb-4">
+        <div class="flex items-start gap-3">
+          <div class="p-2 rounded-xl bg-primary/10 border border-primary/20 text-primary mt-0.5">
+            <span class="material-symbols-outlined text-[24px]">sync</span>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 id="sync-panel-title" class="font-headline-md text-headline-md text-on-surface font-semibold">
+                Automatic Scraper &amp; Sync Status
+              </h2>
+              <span class="px-2 py-0.5 rounded-full bg-primary/20 text-primary text-[11px] font-semibold uppercase tracking-wider">Active</span>
+            </div>
+            <p class="font-body-md text-xs text-on-surface-variant mt-0.5">
+              Scheduled background pipeline scraping source platforms daily with automated taxonomy &amp; validation
+            </p>
+          </div>
+        </div>
+        <button id="btn-close-sync-status" class="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"
+          aria-label="Close Sync Status Modal">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <!-- Live Sync Telemetry Grid (3 Cards) -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <!-- Card 1: Last Synced -->
+        <div class="p-3.5 rounded-xl bg-surface-container border border-surface-container-high flex flex-col justify-between">
+          <div class="flex items-center justify-between text-on-surface-variant text-[11px] font-semibold uppercase tracking-wider">
+            <span>Last Synced</span>
+            <span class="material-symbols-outlined text-[16px] text-primary">history</span>
+          </div>
+          <div class="mt-2">
+            <div id="sync-last-relative" class="font-headline-sm text-sm font-bold text-on-surface">Synced 3 hours ago</div>
+            <div id="sync-last-full" class="text-[11px] text-on-surface-variant font-mono mt-0.5">Today at 03:00 UTC</div>
+          </div>
+        </div>
+
+        <!-- Card 2: Next Scheduled Sync -->
+        <div class="p-3.5 rounded-xl bg-surface-container border border-surface-container-high flex flex-col justify-between">
+          <div class="flex items-center justify-between text-on-surface-variant text-[11px] font-semibold uppercase tracking-wider">
+            <span>Next Schedule</span>
+            <span class="material-symbols-outlined text-[16px] text-secondary">update</span>
+          </div>
+          <div class="mt-2">
+            <div id="sync-next-countdown" class="font-headline-sm text-sm font-bold text-secondary tabular-nums">In ~14h 22m</div>
+            <div class="text-[11px] text-on-surface-variant mt-0.5">Daily cadence (03:00 UTC)</div>
+          </div>
+        </div>
+
+        <!-- Card 3: New Questions -->
+        <div class="p-3.5 rounded-xl bg-surface-container border border-surface-container-high flex flex-col justify-between">
+          <div class="flex items-center justify-between text-on-surface-variant text-[11px] font-semibold uppercase tracking-wider">
+            <span>New Since Visit</span>
+            <span class="material-symbols-outlined text-[16px] text-primary">new_releases</span>
+          </div>
+          <div class="mt-2 flex items-center justify-between">
+            <div>
+              <div id="sync-new-count-text" class="font-headline-sm text-sm font-bold text-primary">2 questions</div>
+              <div class="text-[11px] text-on-surface-variant mt-0.5">Auto-added via worker</div>
+            </div>
+            <button id="btn-view-new-shortcut" type="button"
+              class="px-2.5 py-1 rounded-lg bg-primary text-on-primary font-label-sm text-xs font-semibold hover:bg-primary-fixed transition-colors flex items-center gap-1 shadow-sm">
+              <span class="material-symbols-outlined text-[14px]">filter_list</span>
+              <span>View new</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Active Staged Progress UI (Visible during sync) -->
+      <div id="sync-progress-box" class="hidden p-4 rounded-xl bg-surface-container-lowest border border-primary/40 flex flex-col gap-2.5 transition-all">
+        <div class="flex items-center justify-between text-primary font-label-sm text-label-sm font-semibold">
+          <span class="flex items-center gap-2">
+            <span class="relative flex h-2.5 w-2.5">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
+            </span>
+            <span id="sync-step-text">Checking LeetCode...</span>
+          </span>
+          <span class="font-mono tabular-nums" id="sync-step-pct">15%</span>
+        </div>
+        <div class="w-full bg-surface-container rounded-full h-2 overflow-hidden">
+          <div id="sync-progress-bar" class="h-full bg-primary transition-all duration-300 rounded-full" style="width: 15%;"></div>
+        </div>
+        <div class="text-[11px] text-on-surface-variant flex items-center justify-between">
+          <span>Staged scraper executing: fetching, deduplicating, validating tests &amp; Big-O benchmarks</span>
+          <span id="sync-substep-label" class="font-mono text-primary">Stage 1 of 4</span>
+        </div>
+      </div>
+
+      <!-- Monitored Sources Grid -->
+      <div class="flex flex-col gap-2">
+        <div class="flex items-center justify-between">
+          <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">
+            Monitored Coding Platforms (5 Sources)
+          </span>
+          <span class="text-[11px] text-on-surface-variant">Next automatic cycle across all targets</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2" id="sync-sources-grid">
+          <!-- Monitored platforms rendered dynamically via app.js -->
+        </div>
+      </div>
+
+      <!-- Sync Run History Log (Gated for admin only) -->
+      <div id="sync-history-section" class="flex flex-col gap-2">
+        <div class="flex items-center justify-between">
+          <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">
+            Automatic Run History
+          </span>
+          <span class="text-[11px] text-on-surface-variant">Past 72 hours</span>
+        </div>
+        <div id="sync-history-list" class="flex flex-col gap-1.5 max-h-36 overflow-y-auto pr-1">
+          <!-- Populated from getSyncHistory() -->
+        </div>
+      </div>
+
+      <!-- Unauthorized / Non-Admin Fallback Notice (Displayed if modal reached directly by non-admin) -->
+      <div id="sync-admin-restricted-notice" class="hidden p-3 rounded-xl bg-surface-container/80 border border-surface-container-high text-xs text-on-surface-variant flex items-center gap-2.5">
+        <span class="material-symbols-outlined text-[18px] text-secondary shrink-0">admin_panel_settings</span>
+        <span>Administrative controls and full automated run logs are restricted to administrator accounts.</span>
+      </div>
+
+      <!-- Footer & Secondary Manual Override Action -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t border-surface-container">
+        <div class="text-[11px] text-on-surface-variant flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[15px] text-primary">info</span>
+          <span>Background job runs automatically. Manual trigger is for on-demand spot checks.</span>
+        </div>
+        <div class="flex items-center gap-2.5 w-full sm:w-auto justify-end">
+          <button type="button" id="btn-done-sync"
+            class="px-3.5 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm transition-colors">
+            Close
+          </button>
+          <button type="button" id="btn-manual-sync"
+            class="px-4 py-2 rounded-lg bg-surface-container-high hover:bg-primary-container text-on-surface hover:text-on-primary-container border border-surface-container-highest font-label-sm text-label-sm font-semibold flex items-center gap-2 transition-all shadow-sm">
+            <span class="material-symbols-outlined text-[18px]" id="manual-sync-icon">sync</span>
+            <span id="manual-sync-text">Sync now</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: QUICK SEARCH COMMAND PALETTE (⌘K)                                  -->
+  <!-- ========================================================================= -->
+  <div id="modal-quick-search"
+    class="modal-overlay fixed inset-0 z-[100] flex items-start justify-center p-4 pt-20 bg-background/80 backdrop-blur-md">
+    <div
+      class="modal-content w-full max-w-lg bg-surface-container-low border border-surface-container-high rounded-2xl overflow-hidden shadow-2xl flex flex-col">
+      <div class="p-3 border-b border-surface-container flex items-center gap-2">
+        <span class="material-symbols-outlined text-on-surface-variant text-[20px]">search</span>
+        <input id="quick-palette-input" type="text" placeholder="Search problems, topics, or commands..."
+          class="w-full bg-transparent text-on-surface outline-none font-body-md text-body-md placeholder:text-on-surface-variant/60" />
+        <kbd
+          class="font-label-sm text-[11px] px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-mono">ESC</kbd>
+      </div>
+      <div id="quick-palette-results" class="max-h-72 overflow-y-auto p-2 flex flex-col gap-1 font-label-sm">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- FLOATING SELECTION ACTION BAR                                             -->
+  <!-- ========================================================================= -->
+  <div id="selection-action-bar"
+    role="region"
+    aria-label="Selection actions"
+    aria-live="polite"
+    class="fixed bottom-6 left-1/2 z-[100] bg-surface-container-high/95 backdrop-blur-md border border-primary/30 text-on-surface px-5 py-3 rounded-2xl shadow-2xl shadow-black/60 flex items-center gap-4">
+    <div class="flex items-center gap-2.5">
+      <span class="w-2.5 h-2.5 rounded-full bg-primary animate-pulse" aria-hidden="true"></span>
+      <span id="selection-count-text" class="font-label-md text-sm font-semibold text-on-surface tabular-nums">0 questions selected</span>
+    </div>
+    <div class="h-4 w-px bg-surface-container-highest" aria-hidden="true"></div>
+    <div class="flex items-center gap-2">
+      <button id="btn-download-json" type="button"
+        class="px-3.5 py-1.5 rounded-lg bg-primary text-on-primary hover:bg-primary-fixed transition-colors font-label-sm text-xs font-bold flex items-center gap-1.5 shadow-sm shadow-primary/20 cursor-pointer"
+        aria-label="Download JSON export of selected questions">
+        <span class="material-symbols-outlined text-[16px]">download</span>
+        <span>Download JSON</span>
+      </button>
+      <button id="btn-clear-selection" type="button"
+        class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface transition-colors font-label-sm text-xs font-semibold flex items-center gap-1.5 cursor-pointer"
+        aria-label="Clear selected questions">
+        <span class="material-symbols-outlined text-[16px]">close</span>
+        <span>Clear selection</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- TOAST NOTIFICATION                                                        -->
+  <!-- ========================================================================= -->
+  <div id="toast-notification"
+    class="fixed bottom-6 right-6 z-[110] bg-surface-container-high text-on-surface border border-primary/40 px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2.5 text-label-sm font-label-sm opacity-0 pointer-events-none">
+    <span class="material-symbols-outlined text-primary text-[20px]" id="toast-icon">check_circle</span>
+    <span id="toast-message">Notification</span>
+  </div>
+
+  <!-- Global Footer -->
+  <footer class="w-full bg-surface-container-lowest border-t border-surface-container">
+    <div
+      class="max-w-container-max mx-auto px-gutter py-lg flex flex-col md:flex-row items-center justify-between gap-sm">
+      <div class="flex items-center gap-xs">
+        <span class="font-headline-md text-[20px] text-on-surface font-semibold">CodeGen AI</span>
+        <span class="text-on-surface-variant font-label-sm text-label-sm font-mono">// Practice. Solve. Improve.</span>
+      </div>
+      <div class="flex items-center gap-md font-label-sm text-label-sm text-on-surface-variant">
+        <a class="hover:text-on-surface transition-colors" href="#">API Docs</a>
+        <a class="hover:text-on-surface transition-colors" href="#">System Status</a>
+        <a class="hover:text-on-surface transition-colors" href="#">Privacy</a>
+        <span>© 2024 CodeGen Inc.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Logic -->
+  <script type="module" src="app.js"></script>
+
+</body>
+
+</html>

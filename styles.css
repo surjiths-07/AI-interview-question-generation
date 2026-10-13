@@ -1,0 +1,222 @@
+/* Midnight Syntax AI - Custom CSS Styles & Theme Tokens (Stitch 4465903677797311403) */
+
+:root {
+  --bg-surface: #0b1326;
+  --bg-surface-dim: #0b1326;
+  --bg-surface-bright: #31394d;
+  --bg-surface-lowest: #060e20;
+  --bg-surface-low: #131b2e;
+  --bg-surface-container: #171f33;
+  --bg-surface-high: #222a3d;
+  --bg-surface-highest: #2d3449;
+
+  --color-primary: #4edea3;
+  --color-primary-container: #10b981;
+  --color-on-primary: #003824;
+  --color-on-primary-container: #00422b;
+  --color-primary-fixed: #6ffbbe;
+
+  --color-secondary: #adc6ff;
+  --color-secondary-container: #0566d9;
+  --color-on-secondary: #002e6a;
+  --color-on-secondary-container: #e6ecff;
+
+  --color-tertiary: #ffb2b7;
+  --color-tertiary-container: #ff7886;
+  --color-error: #ffb4ab;
+  --color-error-container: #93000a;
+
+  --color-on-surface: #dae2fd;
+  --color-on-surface-variant: #bbcabf;
+  --color-outline: #86948a;
+  --color-outline-variant: #3c4a42;
+}
+
+body {
+  background-color: var(--bg-surface-lowest);
+  color: var(--color-on-surface);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* Custom Scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #334155 #0b1326;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b1326;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Accessible Focus-Visible Ring */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex="0"]:focus-visible {
+  outline: 2px solid var(--color-primary-container) !important;
+  outline-offset: 2px !important;
+}
+
+/* Page View Transition Animations */
+.page-view {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.page-view.active {
+  display: block;
+  opacity: 1;
+  animation: fadeInView 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInView {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Interactive Card & Glow Effects */
+.glow-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.glow-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px rgba(78, 222, 163, 0.12);
+  border-color: rgba(78, 222, 163, 0.3);
+}
+
+/* Code Editor Canvas */
+.code-editor-area {
+  font-family: 'JetBrains Mono', monospace;
+  tab-size: 4;
+  white-space: pre;
+}
+
+.code-editor-area:focus {
+  outline: none;
+}
+
+/* Subarray Visualizer animation */
+.visualizer-cell {
+  transition: all 0.2s ease;
+}
+
+.visualizer-cell:hover {
+  transform: scale(1.05);
+}
+
+/* Heatmap Tooltip */
+.heatmap-cell {
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+.heatmap-cell:hover {
+  transform: scale(1.3);
+  z-index: 10;
+  filter: brightness(1.2);
+}
+
+/* Modal styling */
+.modal-overlay {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  transform: scale(0.96) translateY(8px);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.modal-overlay.open .modal-content {
+  transform: scale(1) translateY(0);
+}
+
+/* Toast animation */
+#toast-notification {
+  transform: translateY(100%);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+}
+#toast-notification.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Checkbox styling */
+input[type="checkbox"] {
+  accent-color: var(--color-primary);
+}
+
+/* Floating selection action bar */
+#selection-action-bar {
+  transform: translate(-50%, 6rem);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+}
+#selection-action-bar.show {
+  transform: translate(-50%, 0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Diff highlights */
+.diff-del {
+  background-color: rgba(244, 63, 94, 0.15);
+  color: #ffb4ab;
+}
+
+.diff-add {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #4edea3;
+}
+
+/* Compositor-friendly spinning icon for sync */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+  animation: spin 0.8s linear infinite;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
